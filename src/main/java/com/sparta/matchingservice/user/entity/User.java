@@ -49,4 +49,6 @@ public class User extends BaseEntity {
         this.sellerEnrollment = sellerEnrollment;
     }
 
+
+
 }

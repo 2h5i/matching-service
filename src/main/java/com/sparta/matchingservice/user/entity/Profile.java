@@ -2,6 +2,7 @@ package com.sparta.matchingservice.user.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
+import lombok.Builder;
 import lombok.Getter;
 
 @Embeddable
@@ -15,5 +16,11 @@ public class Profile {
     private String profileImage;
 
     private String introduce;
+
+    @Builder
+    public Profile(String nickName,String profileImage) {
+        this.nickName = nickName;
+        this.profileImage = profileImage;
+    }
 
 }

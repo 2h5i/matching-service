@@ -5,6 +5,7 @@ import com.sparta.matchingservice.user.dto.UserProfileResponseDto;
 import com.sparta.matchingservice.user.entity.Profile;
 import com.sparta.matchingservice.user.entity.User;
 import com.sparta.matchingservice.user.repository.UserRepository;
+import com.sparta.matchingservice.user.exception.IdNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -24,7 +25,7 @@ public class CustomerServiceImpl implements CustomerService {
 
         //레파지토리에서 user 객체 찾기
 
-        User user = userRepository.findById(id).orElseThrow(IllegalAccessError::new);
+        User user = userRepository.findById(id).orElseThrow(IdNotFoundException::new);
 
         // 프로필 내용수정
        user.builder()

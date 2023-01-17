@@ -4,9 +4,11 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Embeddable
 @Getter
+@NoArgsConstructor
 public class Profile {
 
     @Column(nullable = false)
@@ -22,5 +24,6 @@ public class Profile {
         this.nickName = nickName;
         this.profileImage = profileImage;
     }
+
 
 }

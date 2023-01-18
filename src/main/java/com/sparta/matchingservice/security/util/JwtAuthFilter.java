@@ -19,7 +19,6 @@ import java.io.IOException;
 @Slf4j
 @RequiredArgsConstructor
 public class JwtAuthFilter extends OncePerRequestFilter {
-    //oncePerRequestFilter 말고 UsernamePasswordAuthenticationFilter 같은거나 그 부모 객체인 AbstractAuthenticationProcessingFilter (기본 베이직 필터) 이런것도 상속받아도 된다.
     private final JwtUtil jwtUtil;
 
     @Override
@@ -38,9 +37,9 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         filterChain.doFilter(request,response);
     }
 
-    public void setAuthentication(String username) {
+    public void setAuthentication(String userName) {
         SecurityContext context = SecurityContextHolder.createEmptyContext();
-        Authentication authentication = jwtUtil.createAuthentication(username);
+        Authentication authentication = jwtUtil.createAuthentication(userName);
         context.setAuthentication(authentication);
         SecurityContextHolder.setContext(context);
     }

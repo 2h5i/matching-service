@@ -1,7 +1,7 @@
 package com.sparta.matchingservice.security.util;
 
 import com.sparta.matchingservice.user.entity.User;
-import com.sparta.matchingservice.user.entity.UserRoleEnum;
+import com.sparta.matchingservice.user.entity.UserRole;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,11 +12,11 @@ import java.util.Collection;
 public class UserDetailsImpl implements UserDetails {
 
     private final User user;
-    private final String username;
+    private final String userName;
 
-    public UserDetailsImpl(User user, String username) {
+    public UserDetailsImpl(User user, String userName) {
         this.user = user;
-        this.username = username;
+        this.userName = userName;
     }
 
     public User getUser() {
@@ -25,7 +25,7 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        UserRoleEnum role = user.getRole();
+        UserRole role = user.getUserRole();
         String authority = role.getAuthority();
 
         SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(authority);
@@ -37,7 +37,7 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public String getUsername() {
-        return this.username;
+        return this.userName;
     }
 
     @Override

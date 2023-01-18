@@ -1,6 +1,6 @@
 package com.sparta.matchingservice.security.controller;
 
-import com.sparta.matchingservice.security.sevice.SecurityService;
+import com.sparta.matchingservice.security.service.SecurityService;
 import com.sparta.matchingservice.security.dto.SignupRequestDto;
 import com.sparta.matchingservice.security.dto.LoginRequestDto;
 
@@ -9,8 +9,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import lombok.RequiredArgsConstructor;
+
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/auth")
 public class SecurityController {

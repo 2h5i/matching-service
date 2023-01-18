@@ -15,7 +15,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class UserService {
+public class SecurityService {
     private final UserRepository userRepository;
     private final JwtUtil jwtUtil;
     private final PasswordEncoder passwordEncoder;
@@ -24,13 +24,13 @@ public class UserService {
 
     @Transactional
     public void signup(SignupRequestDto signupRequestDto) {
-        String username = signupRequestDto.getUsername();
+        String userName = signupRequestDto.getUserName();
         String password = passwordEncoder.encode(signupRequestDto.getPassword());
 
         // 회원 중복 확인
-        Optional<User> found = userRepository.findByUsername(username);
+        Optional<User> found = userRepository.findByUserName(userName);
         if (found.isPresent()) {
-            throw new IllegalArgumentException("중복된 username 입니다");
+            throw new IllegalArgumentException("중복된 userName 입니다");
         }
 
         UserRole role = UserRole.USER;
@@ -42,23 +42,27 @@ public class UserService {
             role = UserRole.ADMIN;
         }
 
-        User user = new User(username, password, role);
+        User user = User.builder()
+                    .userName(userName)
+                    .password(password)
+                    .userRole(role)
+                    .build();
         userRepository.save(user);
     }
 
     @Transactional(readOnly = true)
     public String login(LoginRequestDto loginRequestDto) {
-        String username = loginRequestDto.getUsername();
+        String userName = loginRequestDto.getUserName();
         String password = loginRequestDto.getPassword();
 
         // 사용자 확인
-        User user = userRepository.findByUsername(username).orElseThrow(
+        User user = userRepository.findByUserName(userName).orElseThrow(
                 () -> new IllegalArgumentException("회원 아이디가 없습니다")
         );
         // 비밀번호 확인
         if(!passwordEncoder.matches(password, user.getPassword())){
             throw  new IllegalArgumentException("비밀번호가 틀렸습니다");
         }
-        return jwtUtil.createToken(user.getUsername(), user.getRole());
+        return jwtUtil.createToken(user.getUserName(), user.getUserRole());
     }
 }

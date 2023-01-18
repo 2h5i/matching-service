@@ -9,6 +9,7 @@ import com.sparta.matchingservice.user.entity.UserRole;
 import com.sparta.matchingservice.user.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import net.bytebuddy.utility.dispatcher.JavaDispatcher;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -59,6 +60,8 @@ public class CustomerServiceImplTest {
         userRepository.save(user);
 
         String s = userRepository.findById(user.getId()).get().getProfile().getNickName().toString();
+        Assertions.assertSame(s, "nanasd"); // 얘가 테스트 케이스를 만드는 아이이다..
+
         System.out.println("디비에 저장된 유저닉네임 : " + s);
 
         //여기서 수정이 안되고 있음...

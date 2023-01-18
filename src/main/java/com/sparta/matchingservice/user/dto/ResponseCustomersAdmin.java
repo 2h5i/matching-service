@@ -13,12 +13,14 @@ import java.util.stream.Collectors;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ResponseCustomersAdmin {
 
+    private Long id;
     private String userName;
     private String nickName;
     private String profileImage;
     private UserRole userRole;
 
     private ResponseCustomersAdmin(User user) {
+        this.id = user.getId();
         this.userName = user.getUserName();
         this.nickName = user.getProfile().getNickName();
         this.profileImage = user.getProfile().getProfileImage();

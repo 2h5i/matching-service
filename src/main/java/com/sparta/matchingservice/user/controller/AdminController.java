@@ -39,11 +39,7 @@ public class AdminController {
     }
 
     // TODO : SELLER ENROLLMENT로 이동
-//    @GetMapping("/want-seller")
-//    @ResponseStatus(HttpStatus.OK)
-//    public Page<ResponseCustomersAdmin> getSellerEnrollmentCustomersAdmin(Pageable pageable) {
-//        return adminService.getSellerEnrollmentCustomersAdmin(pageable);
-//    }
+
 
     @PutMapping("/authority-approve/{customerId}")
     @ResponseStatus(HttpStatus.OK)

@@ -16,4 +16,9 @@ public class Profile {
 
     private String introduce;
 
+    public void updateSellerProfile(String nickName, String profileImage, String introduce) {
+        this.nickName = nickName;
+        this.profileImage = profileImage;
+        this.introduce = introduce;
+    }
 }

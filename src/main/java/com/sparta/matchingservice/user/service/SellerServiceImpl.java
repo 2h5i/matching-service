@@ -3,12 +3,12 @@ package com.sparta.matchingservice.user.service;
 import com.sparta.matchingservice.item.entity.Item;
 import com.sparta.matchingservice.item.repository.ItemRepository;
 import com.sparta.matchingservice.order.entity.Order;
+import com.sparta.matchingservice.order.entity.OrderStatus;
 import com.sparta.matchingservice.order.repository.OrderRepository;
-import com.sparta.matchingservice.user.dto.ItemsResponseDto;
-import com.sparta.matchingservice.user.dto.OrderListResponseDto;
-import com.sparta.matchingservice.user.dto.RegisterItemForm;
-import com.sparta.matchingservice.user.dto.UpdateItemForm;
+import com.sparta.matchingservice.user.dto.*;
+import com.sparta.matchingservice.user.entity.Profile;
 import com.sparta.matchingservice.user.entity.User;
+import com.sparta.matchingservice.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,6 +24,7 @@ import java.util.Optional;
 public class SellerServiceImpl implements SellerService{
     private final ItemRepository itemRepository;
     private final OrderRepository orderRepository;
+    private final UserRepository userRepository;
 
     @Override
     public List<ItemsResponseDto> getMyItems(Pageable pageable, User user) {
@@ -94,6 +95,27 @@ public class SellerServiceImpl implements SellerService{
         if (findItem.getUser().getId() == userId) {
             itemRepository.deleteById(itemId);
         }
+    }
+
+    @Override
+    public void updateMyProfile(Long userId, UpdateProfileForm updateProfileForm, User user) {
+        if (user.getId() == userId) {
+            // 시큐리티에서 존재하는 유저인지 체크해서 줄 것
+            User findUser = userRepository.findById(userId).get();
+            Profile findUserProfile = findUser.getProfile();
+            findUserProfile.updateSellerProfile(updateProfileForm.getNickName(),
+                    updateProfileForm.getProfileImage(), updateProfileForm.getIntroduce());
+            userRepository.save(findUser);
+        }
+    }
+
+    @Override
+    public void matchingOrder(Long orderId) {
+        Order order = orderRepository.findById(orderId).orElseThrow(
+                () -> new IllegalStateException("없는 요청입니다.")
+        );
+        order.changeOrderStatus(OrderStatus.SUCCESS);
+        orderRepository.save(order);
     }
 
 

@@ -2,8 +2,10 @@ package com.sparta.matchingservice.user.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
 import lombok.RequiredArgsConstructor;
 
 @Embeddable
@@ -18,6 +20,14 @@ public class Profile {
     private String profileImage;
 
     private String introduce;
+
+
+    @Builder
+    public Profile(String nickName,String profileImage) {
+        this.nickName = nickName;
+        this.profileImage = profileImage;
+    }
+
 
     public void updateSellerProfile(String nickName, String profileImage, String introduce) {
         this.nickName = nickName;

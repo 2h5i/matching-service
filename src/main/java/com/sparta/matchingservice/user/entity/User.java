@@ -41,7 +41,8 @@ public class User extends BaseEntity {
     private SellerEnrollment sellerEnrollment;
 
     @Builder
-    public User(String userName, String password, Profile profile, UserRole userRole, SellerEnrollment sellerEnrollment) {
+    public User(Long id , String userName, String password, Profile profile, UserRole userRole, SellerEnrollment sellerEnrollment) {
+        this.id = id;
         this.userName = userName;
         this.password = password;
         this.profile = profile;
@@ -49,4 +50,12 @@ public class User extends BaseEntity {
         this.sellerEnrollment = sellerEnrollment;
     }
 
+
+    public void modufyProfile(String nickName, String image) {
+        this.profile = Profile.builder()
+                .nickName(nickName)
+                .profileImage(image)
+                .build();
+
+    }
 }

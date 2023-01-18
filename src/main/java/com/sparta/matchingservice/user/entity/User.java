@@ -4,6 +4,8 @@ import com.sparta.matchingservice.common.entity.BaseEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -31,9 +33,11 @@ public class User extends BaseEntity {
     private Profile profile;
 
     @Column(nullable = false)
+    @Enumerated(value = EnumType.STRING)
     private UserRole userRole;
 
     @Column(nullable = false)
+    @Enumerated(value = EnumType.STRING)
     private SellerEnrollment sellerEnrollment;
 
     @Builder

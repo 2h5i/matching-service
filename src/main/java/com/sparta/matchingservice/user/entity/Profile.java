@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import lombok.RequiredArgsConstructor;
+
 @Embeddable
 @Getter
 @NoArgsConstructor
@@ -19,6 +21,7 @@ public class Profile {
 
     private String introduce;
 
+
     @Builder
     public Profile(String nickName,String profileImage) {
         this.nickName = nickName;
@@ -26,4 +29,15 @@ public class Profile {
     }
 
 
+    public void updateSellerProfile(String nickName, String profileImage, String introduce) {
+        this.nickName = nickName;
+        this.profileImage = profileImage;
+        this.introduce = introduce;
+    }
+
+    public Profile(String nickName, String profileImage, String introduce) {
+        this.nickName = nickName;
+        this.profileImage = profileImage;
+        this.introduce = introduce;
+    }
 }

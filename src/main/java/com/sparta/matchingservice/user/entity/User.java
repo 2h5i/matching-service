@@ -52,4 +52,11 @@ public class User extends BaseEntity {
         this.userRole = UserRole.USER;
     }
 
+    public void modufyProfile(String nickName, String image) {
+        this.profile = Profile.builder()
+                .nickName(nickName)
+                .profileImage(image)
+                .build();
+
+    }
 }

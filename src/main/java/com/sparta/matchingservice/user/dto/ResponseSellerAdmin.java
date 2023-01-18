@@ -1,6 +1,5 @@
 package com.sparta.matchingservice.user.dto;
 
-import com.sparta.matchingservice.user.entity.SellerEnrollment;
 import com.sparta.matchingservice.user.entity.User;
 import com.sparta.matchingservice.user.entity.UserRole;
 import lombok.Getter;

@@ -21,7 +21,18 @@ public class Profile {
     private String introduce;
 
     @Builder
-    private Profile(String nickName, String profileImage, String introduce) {
+    public Profile(String nickName,String profileImage) {
+        this.nickName = nickName;
+        this.profileImage = profileImage;
+    }
+
+    public void updateSellerProfile(String nickName, String profileImage, String introduce) {
+        this.nickName = nickName;
+        this.profileImage = profileImage;
+        this.introduce = introduce;
+    }
+
+    public Profile(String nickName, String profileImage, String introduce) {
         this.nickName = nickName;
         this.profileImage = profileImage;
         this.introduce = introduce;

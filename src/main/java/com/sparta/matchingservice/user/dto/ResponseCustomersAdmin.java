@@ -1,6 +1,5 @@
 package com.sparta.matchingservice.user.dto;
 
-import com.sparta.matchingservice.user.entity.SellerEnrollment;
 import com.sparta.matchingservice.user.entity.User;
 import com.sparta.matchingservice.user.entity.UserRole;
 import lombok.AccessLevel;
@@ -18,7 +17,6 @@ public class ResponseCustomersAdmin {
     private String nickName;
     private String profileImage;
     private UserRole userRole;
-    private boolean isSeller;
 
     private ResponseCustomersAdmin(User user) {
         this.userName = user.getUserName();

@@ -5,7 +5,7 @@ import com.sparta.matchingservice.user.entity.UserRole;
 import lombok.Data;
 
 @Data
-public class UserSignupRequestDto {
+public class UsersignupRequestDto {
 
     private Long id;
     private String userName;

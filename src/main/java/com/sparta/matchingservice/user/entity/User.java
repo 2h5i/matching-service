@@ -44,4 +44,12 @@ public class User extends BaseEntity {
         this.userRole = userRole;
     }
 
+    public void changeAuthoritySellerToCustomer() {
+        this.profile = Profile.builder()
+                .nickName(this.profile.getNickName())
+                .profileImage(this.getProfile().getProfileImage())
+                .build();
+        this.userRole = UserRole.USER;
+    }
+
 }

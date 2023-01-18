@@ -29,7 +29,10 @@ dependencies {
     compileOnly 'org.projectlombok:lombok'
     compileOnly group: 'io.jsonwebtoken', name: 'jjwt-api', version: '0.11.2'
 
+    annotationProcessor 'org.projectlombok:lombok'
+
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
 //    testImplementation 'org.springframework.security:spring-security-test'
 
     // 테스트 코드 돌리기 위한 설정
@@ -47,6 +50,9 @@ dependencies {
 
     // https://mvnrepository.com/artifact/org.testcontainers/junit-jupiter
     testImplementation group: 'org.testcontainers', name: 'junit-jupiter', version: '1.17.6'
+
+    testImplementation 'org.springframework.security:spring-security-test'
+
 
 }
 

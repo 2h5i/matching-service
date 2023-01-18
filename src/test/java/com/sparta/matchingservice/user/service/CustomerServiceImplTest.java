@@ -60,7 +60,7 @@ public class CustomerServiceImplTest {
         userRepository.save(user);
 
         String s = userRepository.findById(user.getId()).get().getProfile().getNickName().toString();
-        Assertions.assertSame(s, "nanasd"); // 얘가 테스트 케이스를 만드는 아이이다..
+        Assertions.assertSame(s, "nana"); // 얘가 테스트 케이스를 만드는 아이이다..
 
         System.out.println("디비에 저장된 유저닉네임 : " + s);
 
@@ -68,6 +68,8 @@ public class CustomerServiceImplTest {
         ModifyUserProfileRequestDto dto = new ModifyUserProfileRequestDto("banana", "susu");
 
         customerService.modifyUserProfile(dto, 1L);
+        String s2 = userRepository.findById(user.getId()).get().getProfile().getNickName().toString();
+        Assertions.assertSame(s2, "banana");
 
         userRepository.findById(1L).get().getProfile().getNickName().toString();
 

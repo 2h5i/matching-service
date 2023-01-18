@@ -10,5 +10,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Modifying(clearAutomatically = true)
     Optional<User> findById(Long id);
+    Optional<User> findByUserName(String userName);
 
 }

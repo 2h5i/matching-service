@@ -1,5 +1,6 @@
 package com.sparta.matchingservice.user.service;
 
+import com.sparta.matchingservice.item.entity.Item;
 import com.sparta.matchingservice.user.dto.ModifyUserProfileRequestDto;
 import com.sparta.matchingservice.user.dto.UserProfileResponseDto;
 import com.sparta.matchingservice.user.dto.UsersignupRequestDto;
@@ -7,12 +8,16 @@ import com.sparta.matchingservice.user.entity.Profile;
 import com.sparta.matchingservice.user.entity.SellerEnrollment;
 import com.sparta.matchingservice.user.entity.User;
 import com.sparta.matchingservice.user.entity.UserRole;
+import com.sparta.matchingservice.user.exception.UserNameNotFoundException;
 import com.sparta.matchingservice.user.repository.UserRepository;
 import com.sparta.matchingservice.user.exception.IdNotFoundException;
-import jakarta.transaction.Transactional;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
 
 @Service
 @RequiredArgsConstructor
@@ -44,17 +49,14 @@ public class CustomerServiceImpl implements CustomerService {
 
     }
 
-//    @Override
-//    @Transactional
-//    public void signup() {
-////        User user = User.builder()
-////                .password(usersignupRequestDto.getPassword())
-////                .userName(usersignupRequestDto.getUserName())
-////                .userRole(usersignupRequestDto.getUserRole())
-////                .profile(usersignupRequestDto.getProfile())
-////                .build();
-//
-//        User user = new User(1L,"banana","hahaha",new Profile("banana","sdfasdf"), UserRole.USER, SellerEnrollment.NONE);
-//        userRepository.save(user);
-//    }
+    @Override
+    @Transactional(readOnly = true)
+    public UserProfileResponseDto readProfile(String userName){
+        //userName으로 레파지토리에서 프로필 찾기
+        User user = userRepository.findByUserName(userName).orElseThrow(UserNameNotFoundException::new);
+        return new UserProfileResponseDto(user);
+    }
+
+
+
 }

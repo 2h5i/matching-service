@@ -1,5 +1,6 @@
 package com.sparta.matchingservice.user.controller;
 
+import com.sparta.matchingservice.item.entity.Item;
 import com.sparta.matchingservice.user.dto.ModifyUserProfileRequestDto;
 import com.sparta.matchingservice.user.dto.UserProfileResponseDto;
 import com.sparta.matchingservice.user.dto.UsersignupRequestDto;
@@ -9,19 +10,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 public class CustomerController {
 
     private final CustomerService customerService;
-
-
-//    //임시 회원가입
-//    @PostMapping("/signup")
-//    public HttpStatus signup(){
-//        customerService.signup();
-//        return HttpStatus.OK;
-//    }
 
 
     //나의 프로필 수정
@@ -33,7 +29,17 @@ public class CustomerController {
 
     // 나의 프로필 조회
 
+    @GetMapping("/api/users/profile")
+    public UserProfileResponseDto readProfile(){
+        // 토큰에서 유저네임 꺼내기
+        String userName = "banana";
+        return customerService.readProfile(userName);
+    }
+
     //전체 판매상품 목록 조회
+    public ArrayList<Item> getItems(){
+        return customerService.getItems();
+    }
 
     //전체 판매자 목록
 

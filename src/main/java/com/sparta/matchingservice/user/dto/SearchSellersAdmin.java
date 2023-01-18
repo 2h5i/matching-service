@@ -9,4 +9,10 @@ public class SearchSellersAdmin {
     private String nickName;
     private String introduce;
 
+    private SearchSellersAdmin(String userName, String nickName, String introduce) {
+        this.userName = userName;
+        this.nickName = nickName;
+        this.introduce = introduce;
+    }
+
 }

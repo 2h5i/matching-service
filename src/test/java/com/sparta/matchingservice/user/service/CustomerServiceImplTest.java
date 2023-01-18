@@ -43,7 +43,6 @@ public class CustomerServiceImplTest {
     @Test
     @Transactional
     public void ModifyServiceTest() {
-
         // 사용자 정보 넣고
         // 해당 메서드 불러오고
         User user = User.builder()
@@ -62,7 +61,6 @@ public class CustomerServiceImplTest {
 
         System.out.println("디비에 저장된 유저닉네임 : " + s);
 
-        //여기서 수정이 안되고 있음...
         ModifyUserProfileRequestDto dto = new ModifyUserProfileRequestDto("banana", "susu");
 
         customerService.modifyUserProfile(dto, 1L);
@@ -70,8 +68,9 @@ public class CustomerServiceImplTest {
         Assertions.assertSame(s2, "banana");
 
         userRepository.findById(1L).get().getProfile().getNickName().toString();
-
     }
+
+
 
 
 }

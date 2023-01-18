@@ -1,6 +1,7 @@
 package com.sparta.matchingservice.user.controller;
 
 import com.sparta.matchingservice.item.entity.Item;
+import com.sparta.matchingservice.user.dto.ItemsResponseDto;
 import com.sparta.matchingservice.user.dto.ModifyUserProfileRequestDto;
 import com.sparta.matchingservice.user.dto.UserProfileResponseDto;
 import com.sparta.matchingservice.user.dto.UsersignupRequestDto;
@@ -35,12 +36,7 @@ public class CustomerController {
         String userName = "banana";
         return customerService.readProfile(userName);
     }
-
-    //전체 판매상품 목록 조회
-    @GetMapping("/")
-    public List<Item> readItem(){
-        return
-    }
+    //전체 상품 목록
 
     //전체 판매자 목록
 

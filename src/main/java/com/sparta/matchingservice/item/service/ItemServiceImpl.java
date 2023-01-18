@@ -8,7 +8,10 @@ import com.sparta.matchingservice.user.dto.UpdateItemForm;
 import com.sparta.matchingservice.user.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.validator.constraints.LuhnCheck;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -73,12 +76,21 @@ public class ItemServiceImpl implements ItemService{
         }
     }
 
+
     @Override
-    @Transactional
-    public List<Item> readAllItems(){
+    @Transactional(readOnly = true)
+    public List<ItemsResponseDto> readItem(int currentPage){
+        if(currentPage==0) currentPage=1;
+        Page<Item> itemPage = itemRepository.findAll(PageRequest.of(currentPage-1,10, Sort.Direction.DESC));
 
-        
+        List<ItemsResponseDto> itemsResponseDtos = new ArrayList<>();
 
-        return new
+        for(Item item:itemPage){
+            itemsResponseDtos.add(new ItemsResponseDto(item));
+        }
+
+        return itemsResponseDtos;
+
     }
+
 }

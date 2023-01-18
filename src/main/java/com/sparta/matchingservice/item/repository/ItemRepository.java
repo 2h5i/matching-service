@@ -9,4 +9,5 @@ import java.util.List;
 
 public interface ItemRepository extends JpaRepository<Item, Long> {
     Page<Item> findAllByUserId(Long userId, Pageable pageable);
+
 }

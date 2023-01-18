@@ -8,8 +8,6 @@ import com.sparta.matchingservice.user.entity.UserRole;
 import com.sparta.matchingservice.user.service.SellerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

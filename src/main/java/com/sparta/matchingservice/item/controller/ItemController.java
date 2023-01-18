@@ -10,8 +10,6 @@ import com.sparta.matchingservice.user.entity.User;
 import com.sparta.matchingservice.user.entity.UserRole;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,7 +23,7 @@ public class ItemController {
 
     // 내 판매 상품 조회
     @GetMapping("/users/seller/items")
-    public List<ItemsResponseDto> getItems(Pageable pageable, @AuthenticationPrincipal UserDetails userDetails) {
+    public List<ItemsResponseDto> getItems(Pageable pageable) {
         Profile profile = new Profile("test", "URL", "팝니다");
         return itemService.getMyItems(pageable, User.builder().userName("user1").profile(profile)
                 .userRole(UserRole.SELLER).sellerEnrollment(SellerEnrollment.SUCCESS).build());
@@ -41,7 +39,7 @@ public class ItemController {
 
     // 판매 물품 수정
     @PutMapping("/items/{itemId}")
-    public void updateItem(@PathVariable Long itemId, @RequestBody UpdateItemForm requestForm, @AuthenticationPrincipal UserDetails userDetails) {
+    public void updateItem(@PathVariable Long itemId, @RequestBody UpdateItemForm requestForm) {
         Profile profile = new Profile("test", "URL", "팝니다");
         itemService.updateItem(itemId, requestForm, User.builder().userName("user1").profile(profile)
                 .userRole(UserRole.SELLER).sellerEnrollment(SellerEnrollment.SUCCESS).build().getId());

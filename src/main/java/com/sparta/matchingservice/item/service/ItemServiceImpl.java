@@ -7,8 +7,10 @@ import com.sparta.matchingservice.user.dto.RegisterItemForm;
 import com.sparta.matchingservice.user.dto.UpdateItemForm;
 import com.sparta.matchingservice.user.entity.User;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.validator.constraints.LuhnCheck;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,5 +71,14 @@ public class ItemServiceImpl implements ItemService{
         if (findItem.getUser().getId() == userId) { // 등록한 유저만 삭제 가능
             itemRepository.deleteById(itemId);
         }
+    }
+
+    @Override
+    @Transactional
+    public List<Item> readAllItems(){
+
+        
+
+        return new
     }
 }

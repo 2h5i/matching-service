@@ -31,13 +31,16 @@ public class CustomerController {
 
     @GetMapping("/api/users/profile")
     public UserProfileResponseDto readProfile(){
-        // 토큰에서 유저네임 꺼내기
+        //todo 토큰에서 유저네임 꺼내서 넣기
         String userName = "banana";
         return customerService.readProfile(userName);
     }
 
     //전체 판매상품 목록 조회
-    
+    @GetMapping("/")
+    public List<Item> readItem(){
+        return
+    }
 
     //전체 판매자 목록
 

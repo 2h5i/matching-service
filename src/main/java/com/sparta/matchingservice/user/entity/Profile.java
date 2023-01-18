@@ -2,10 +2,14 @@ package com.sparta.matchingservice.user.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
+import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Embeddable
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Profile {
 
     @Column(nullable = false)
@@ -15,5 +19,12 @@ public class Profile {
     private String profileImage;
 
     private String introduce;
+
+    @Builder
+    private Profile(String nickName, String profileImage, String introduce) {
+        this.nickName = nickName;
+        this.profileImage = profileImage;
+        this.introduce = introduce;
+    }
 
 }

@@ -3,7 +3,6 @@ package com.sparta.matchingservice.order.controller;
 import com.sparta.matchingservice.order.service.OrderService;
 import com.sparta.matchingservice.user.dto.OrderListResponseDto;
 import com.sparta.matchingservice.user.entity.Profile;
-import com.sparta.matchingservice.user.entity.SellerEnrollment;
 import com.sparta.matchingservice.user.entity.User;
 import com.sparta.matchingservice.user.entity.UserRole;
 import lombok.RequiredArgsConstructor;
@@ -29,7 +28,7 @@ public class OrderController {
     public void matchingOrder(@PathVariable Long orderId) {
         Profile profile = new Profile("test", "URL", "팝니다");
         User testUser = User.builder().userName("user1").profile(profile)
-                .userRole(UserRole.SELLER).sellerEnrollment(SellerEnrollment.SUCCESS).build();
+                .userRole(UserRole.SELLER).build();
         if(testUser.getUserRole() == UserRole.SELLER) orderService.matchingOrder(orderId);
     }
 }

@@ -2,15 +2,11 @@ package com.sparta.matchingservice.user.controller;
 
 import com.sparta.matchingservice.user.dto.*;
 import com.sparta.matchingservice.user.entity.Profile;
-import com.sparta.matchingservice.user.entity.SellerEnrollment;
 import com.sparta.matchingservice.user.entity.User;
 import com.sparta.matchingservice.user.entity.UserRole;
 import com.sparta.matchingservice.user.service.SellerService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -24,7 +20,7 @@ public class SellerController {
 //        if(userDetails.getAuthorities() == UserRole.USER) return "redirect:/users/profile/{userId}";
         Profile profile = new Profile("test", "URL", "팝니다");
         sellerService.updateMyProfile(userId, request, User.builder().userName("user1").profile(profile)
-                .userRole(UserRole.SELLER).sellerEnrollment(SellerEnrollment.SUCCESS).build());
+                .userRole(UserRole.SELLER).build());
     }
 
 }

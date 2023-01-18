@@ -36,20 +36,21 @@ public class User extends BaseEntity {
     @Enumerated(value = EnumType.STRING)
     private UserRole userRole;
 
-    @Column(nullable = false)
-    @Enumerated(value = EnumType.STRING)
-    private SellerEnrollment sellerEnrollment;
-
     @Builder
-    public User(Long id , String userName, String password, Profile profile, UserRole userRole, SellerEnrollment sellerEnrollment) {
-        this.id = id;
+    public User(String userName, String password, Profile profile, UserRole userRole, boolean isSeller) {
         this.userName = userName;
         this.password = password;
         this.profile = profile;
         this.userRole = userRole;
-        this.sellerEnrollment = sellerEnrollment;
     }
 
+    public void changeAuthoritySellerToCustomer() {
+        this.profile = Profile.builder()
+                .nickName(this.profile.getNickName())
+                .profileImage(this.getProfile().getProfileImage())
+                .build();
+        this.userRole = UserRole.USER;
+    }
 
     public void modufyProfile(String nickName, String image) {
         this.profile = Profile.builder()

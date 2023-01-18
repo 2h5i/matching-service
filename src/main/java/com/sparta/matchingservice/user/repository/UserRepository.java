@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.Modifying;
 
 import java.util.Optional;
 
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface UserRepository extends JpaRepository<User, Long>, UserCustomRepository{
 
     @Modifying(clearAutomatically = true)
     Optional<User> findById(Long id);

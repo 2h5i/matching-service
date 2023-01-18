@@ -5,7 +5,6 @@ import com.sparta.matchingservice.user.dto.ModifyUserProfileRequestDto;
 import com.sparta.matchingservice.user.dto.UserProfileResponseDto;
 import com.sparta.matchingservice.user.dto.UsersignupRequestDto;
 import com.sparta.matchingservice.user.entity.Profile;
-import com.sparta.matchingservice.user.entity.SellerEnrollment;
 import com.sparta.matchingservice.user.entity.User;
 import com.sparta.matchingservice.user.entity.UserRole;
 import com.sparta.matchingservice.user.exception.UserNameNotFoundException;

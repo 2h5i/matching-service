@@ -5,7 +5,6 @@ import com.sparta.matchingservice.user.dto.ItemsResponseDto;
 import com.sparta.matchingservice.user.dto.RegisterItemForm;
 import com.sparta.matchingservice.user.dto.UpdateItemForm;
 import com.sparta.matchingservice.user.entity.Profile;
-import com.sparta.matchingservice.user.entity.SellerEnrollment;
 import com.sparta.matchingservice.user.entity.User;
 import com.sparta.matchingservice.user.entity.UserRole;
 import lombok.RequiredArgsConstructor;
@@ -26,7 +25,7 @@ public class ItemController {
     public List<ItemsResponseDto> getItems(Pageable pageable) {
         Profile profile = new Profile("test", "URL", "팝니다");
         return itemService.getMyItems(pageable, User.builder().userName("user1").profile(profile)
-                .userRole(UserRole.SELLER).sellerEnrollment(SellerEnrollment.SUCCESS).build());
+                .userRole(UserRole.SELLER).build());
     }
 
     // 판매 물품 등록
@@ -34,7 +33,7 @@ public class ItemController {
     public void registerItem(@RequestBody RegisterItemForm requestForm) {
         Profile profile = new Profile("test", "URL", "팝니다");
         itemService.registerItem(requestForm, User.builder().userName("user1").profile(profile)
-                .userRole(UserRole.SELLER).sellerEnrollment(SellerEnrollment.SUCCESS).build());
+                .userRole(UserRole.SELLER).build());
     }
 
     // 판매 물품 수정
@@ -42,7 +41,7 @@ public class ItemController {
     public void updateItem(@PathVariable Long itemId, @RequestBody UpdateItemForm requestForm) {
         Profile profile = new Profile("test", "URL", "팝니다");
         itemService.updateItem(itemId, requestForm, User.builder().userName("user1").profile(profile)
-                .userRole(UserRole.SELLER).sellerEnrollment(SellerEnrollment.SUCCESS).build().getId());
+                .userRole(UserRole.SELLER).build().getId());
     }
 
     // 판매 물품 삭제
@@ -50,6 +49,6 @@ public class ItemController {
     public void deleteItem(@PathVariable Long itemId) {
         Profile profile = new Profile("test", "URL", "팝니다");
         itemService.deleteItem(itemId, User.builder().userName("user1").profile(profile)
-                .userRole(UserRole.SELLER).sellerEnrollment(SellerEnrollment.SUCCESS).build().getId());
+                .userRole(UserRole.SELLER).build().getId());
     }
 }

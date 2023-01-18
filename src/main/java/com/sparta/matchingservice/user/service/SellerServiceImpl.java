@@ -47,7 +47,7 @@ public class SellerServiceImpl implements SellerService{
 
     @Override
     public List<OrderListResponseDto> getAllOrderList(Pageable pageable) {
-        List<Order> orderList = orderRepository.findAllOrderByCreatedAtDESC(pageable).getContent();
+        List<Order> orderList = orderRepository.findAll(pageable).getContent();
         List<OrderListResponseDto> responseDtoList = new ArrayList<>();
         orderList.stream().forEach(
                 (order -> {

@@ -2,6 +2,8 @@ package com.sparta.matchingservice.user.controller;
 
 import com.sparta.matchingservice.user.dto.ResponseCustomersAdmin;
 import com.sparta.matchingservice.user.dto.ResponseSellerAdmin;
+import com.sparta.matchingservice.user.dto.SearchCustomersAdmin;
+import com.sparta.matchingservice.user.dto.SearchSellersAdmin;
 import com.sparta.matchingservice.user.service.AdminService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -24,21 +26,24 @@ public class AdminController {
 
     @GetMapping("/customer")
     @ResponseStatus(HttpStatus.OK)
-    public Page<ResponseCustomersAdmin> getCustomersAdmin(Pageable pageable) {
-        return adminService.getCustomersAdmin(pageable);
+    public Page<ResponseCustomersAdmin> getCustomersAdmin(SearchCustomersAdmin searchCustomersAdmin,Pageable pageable) {
+
+        return adminService.getCustomersAdmin(pageable, searchCustomersAdmin);
     }
 
     @GetMapping("/seller")
     @ResponseStatus(HttpStatus.OK)
-    public Page<ResponseSellerAdmin> getSellerAdmin(Pageable pageable) {
-        return adminService.getSellerAdmin(pageable);
+    public Page<ResponseSellerAdmin> getSellerAdmin(SearchSellersAdmin searchSellersAdmin,Pageable pageable) {
+
+        return adminService.getSellerAdmin(pageable, searchSellersAdmin);
     }
 
-    @GetMapping("/want-seller")
-    @ResponseStatus(HttpStatus.OK)
-    public Page<ResponseCustomersAdmin> getSellerEnrollmentCustomersAdmin(Pageable pageable) {
-        return adminService.getSellerEnrollmentCustomersAdmin(pageable);
-    }
+    // TODO : SELLER ENROLLMENT로 이동
+//    @GetMapping("/want-seller")
+//    @ResponseStatus(HttpStatus.OK)
+//    public Page<ResponseCustomersAdmin> getSellerEnrollmentCustomersAdmin(Pageable pageable) {
+//        return adminService.getSellerEnrollmentCustomersAdmin(pageable);
+//    }
 
     @PutMapping("/authority-approve/{customerId}")
     @ResponseStatus(HttpStatus.OK)

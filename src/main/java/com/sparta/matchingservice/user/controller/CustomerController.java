@@ -37,9 +37,7 @@ public class CustomerController {
     }
 
     //전체 판매상품 목록 조회
-    public ArrayList<Item> getItems(){
-        return customerService.getItems();
-    }
+    
 
     //전체 판매자 목록
 

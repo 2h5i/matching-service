@@ -1,18 +1,14 @@
 package com.sparta.matchingservice.user.controller;
 
-import com.sparta.matchingservice.item.entity.Item;
+import com.sparta.matchingservice.sellerenrollment.dto.RequestSellerEnrollmentDto;
+import com.sparta.matchingservice.sellerenrollment.dto.ResponseSellerEnrollment;
+import com.sparta.matchingservice.sellerenrollment.service.SellerEnrollmentService;
 import com.sparta.matchingservice.user.dto.*;
-import com.sparta.matchingservice.user.entity.Profile;
-import com.sparta.matchingservice.user.entity.User;
-import com.sparta.matchingservice.user.entity.UserRole;
 import com.sparta.matchingservice.user.service.CustomerService;
-import com.sparta.matchingservice.user.service.CustomerServiceImpl;
 import com.sparta.matchingservice.user.service.SellerService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -21,6 +17,7 @@ public class CustomerController {
 
     private final CustomerService customerService;
     private final SellerService sellerService;
+    private final SellerEnrollmentService sellerEnrollmentService;
 
 
     //나의 프로필 수정
@@ -58,7 +55,17 @@ public class CustomerController {
     // 판매자 주문 요청폼 작성
 
 
+
+
+
+
     // 판매자권한 등록 요청
 
+    @PutMapping("/api/users/enroll-seller")
+    public ResponseSellerEnrollment enrollmentSeller(@PathVariable RequestSellerEnrollmentDto requestSellerEnrollmentDto){
+        //todo userName 빼서 넣어주기.
+        String userName = "banana";
+        return sellerEnrollmentService.enrollmentSeller(requestSellerEnrollmentDto,userName);
+    }
 
 }

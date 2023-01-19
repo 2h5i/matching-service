@@ -13,6 +13,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +40,7 @@ public class SellerServiceImpl implements SellerService{
 
     //전체셀러 목록 조회
     @Override
+    @Transactional(readOnly = true)
     public List<SellerProfileResponseDto> allSellerList(int currentPage){
         if(currentPage==0) currentPage=1;
         Page<User> userAll = userRepository.findAll(PageRequest.of(currentPage-1,10, Sort.Direction.DESC));
@@ -56,6 +58,7 @@ public class SellerServiceImpl implements SellerService{
     }
 
     @Override
+    @Transactional(readOnly = true)
     public SelectedSellerResponseDto selectSeller(Long userid, int currentPage){
         //레파지토리에서  List<Item> sellerItem 를 뽑아내야함.
         //user 객체를 통째로 넘겨받아서

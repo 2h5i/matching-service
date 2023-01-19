@@ -13,17 +13,16 @@ import com.sparta.matchingservice.user.repository.UserRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @Transactional
@@ -59,7 +58,7 @@ class OrderServiceImplTest {
     public void 모든_주문조회() throws Exception {
 
 
-        Pageable pageable = PageRequest.of(1, 3);
+        Pageable pageable = PageRequest.of(4, 3);
 
         List<OrderListResponseDto> allOrderList = orderService.getAllOrderList(pageable);
         allOrderList.stream().forEach(
@@ -94,8 +93,16 @@ class OrderServiceImplTest {
         System.out.println("next page: " + all.hasNext());
 
         System.out.println("==========================================");
-        Assertions.assertThat(allOrderList.size()).isEqualTo(responseDtoList.size());
+        assertThat(allOrderList.size()).isEqualTo(responseDtoList.size());
     }
 
+    @Test
+    public void 매칭서비스() throws Exception{
+        orderService.matchingOrder(2L);
+        Order matchingOrder = orderRepository.findById(2L).orElseThrow(
+                () -> new IllegalStateException("없는 오더")
+        );
+        assertThat(matchingOrder.getOrderStatus()).isEqualTo(OrderStatus.SUCCESS);
+    }
 
 }

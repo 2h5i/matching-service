@@ -106,8 +106,11 @@ class ItemServiceImplTest {
     @Test
     public void 상품_삭제() {
         itemService.deleteItem(1L, 1L);
-//        itemRepository.deleteById(1L);
-        List<Item> items = itemRepository.findAll();
-        assertThat(items.size()).isEqualTo(5);
+        User user = userRepository.findById(1L).orElseThrow(
+                () -> new IllegalStateException("회원 없음")
+        );
+//        List<ItemsResponseDto> myItems = itemService.getMyItems(PageRequest.of(0, 10), user);
+        List<ItemsResponseDto> responseDtoList = itemService.readItem(0);
+        assertThat(responseDtoList.size()).isEqualTo(5);
     }
 }

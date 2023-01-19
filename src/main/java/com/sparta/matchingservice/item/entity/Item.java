@@ -33,6 +33,9 @@ public class Item extends BaseEntity {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @Column
+    private Boolean isAvailable = true;
+
     @Builder
     public Item(String itemName, String itemContent, Long stockCount, Long itemPrice, User user) {
         this.itemName = itemName;
@@ -47,5 +50,9 @@ public class Item extends BaseEntity {
         this.itemContent = itemContent;
         this.stockCount = stockCount;
         this.itemPrice = itemPrice;
+    }
+
+    public void unavailableItem() {
+        this.isAvailable = false;
     }
 }

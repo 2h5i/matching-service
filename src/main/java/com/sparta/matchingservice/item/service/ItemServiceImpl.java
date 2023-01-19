@@ -2,6 +2,7 @@ package com.sparta.matchingservice.item.service;
 
 import com.sparta.matchingservice.item.entity.Item;
 import com.sparta.matchingservice.item.repository.ItemRepository;
+import com.sparta.matchingservice.order.repository.OrderRepository;
 import com.sparta.matchingservice.user.dto.ItemsResponseDto;
 import com.sparta.matchingservice.user.dto.RegisterItemForm;
 import com.sparta.matchingservice.user.dto.UpdateItemForm;
@@ -20,24 +21,30 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class ItemServiceImpl implements ItemService{
 
     private final ItemRepository itemRepository;
+    private final OrderRepository orderRepository;
 
     @Override
+    @Transactional(readOnly = true)
     public List<ItemsResponseDto> getMyItems(Pageable pageable, User user) {
         List<Item> myItems = itemRepository.findAllByUserId(user.getId(), pageable).getContent();
         List<ItemsResponseDto> responseDtoList = new ArrayList<>();
         myItems.stream().forEach(
                 (item) -> {
-                    ItemsResponseDto responseDto = ItemsResponseDto.builder()
-                            .itemId(item.getId())
-                            .itemName(item.getItemName())
-                            .itemContent(item.getItemContent())
-                            .stockCount(item.getStockCount())
-                            .itemPrice(item.getItemPrice())
-                            .build();
-                    responseDtoList.add(responseDto);
+                    if(item.getIsAvailable()) {
+                        ItemsResponseDto responseDto = ItemsResponseDto.builder()
+                                .itemId(item.getId())
+                                .itemName(item.getItemName())
+                                .itemContent(item.getItemContent())
+                                .stockCount(item.getStockCount())
+                                .itemPrice(item.getItemPrice())
+                                .build();
+                        responseDtoList.add(responseDto);
+                    }
+
                 }
         );
         return responseDtoList;
@@ -62,6 +69,7 @@ public class ItemServiceImpl implements ItemService{
         if (findItem.getUser().getId() == userId) { // 등록한 유저만 수정 가능
             findItem.updateItem(requestForm.getItemName(), requestForm.getItemContent(),
                     requestForm.getStockCount(), requestForm.getItemPrice());
+            itemRepository.save(findItem);
         }
 
     }
@@ -72,7 +80,8 @@ public class ItemServiceImpl implements ItemService{
                 () -> new IllegalStateException("없는 아이템입니다.")
         );
         if (findItem.getUser().getId() == userId) { // 등록한 유저만 삭제 가능
-            itemRepository.deleteById(itemId);
+            findItem.unavailableItem();
+            itemRepository.save(findItem);
         }
     }
 
@@ -82,12 +91,12 @@ public class ItemServiceImpl implements ItemService{
     @Transactional(readOnly = true)
     public List<ItemsResponseDto> readItem(int currentPage){
         if(currentPage==0) currentPage=1;
-        Page<Item> itemPage = itemRepository.findAll(PageRequest.of(currentPage-1,10, Sort.Direction.DESC));
+        Page<Item> itemPage = itemRepository.findAll(PageRequest.of(currentPage-1,10,Sort.by("id").descending())); // TODO : 민선님에게 descending 필요한지 물어보고 맞춰보기!
 
         List<ItemsResponseDto> itemsResponseDtos = new ArrayList<>();
 
-        for(Item item:itemPage){
-            itemsResponseDtos.add(new ItemsResponseDto(item));
+        for(Item item:itemPage.getContent()){
+            if(item.getIsAvailable())   itemsResponseDtos.add(new ItemsResponseDto(item));
         }
 
         return itemsResponseDtos;

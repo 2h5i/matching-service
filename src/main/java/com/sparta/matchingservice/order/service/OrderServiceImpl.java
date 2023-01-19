@@ -19,12 +19,12 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class OrderServiceImpl implements OrderService {
 
     private final OrderRepository orderRepository;
     private final ItemRepository itemRepository;
-
-
+    
     //주문요청 작성
     @Override
     @Transactional

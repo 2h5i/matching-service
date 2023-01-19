@@ -37,7 +37,7 @@ class OrderServiceImplTest {
 
     @BeforeEach
     public void beforeEach() {
-        Profile profile = Profile.builder().nickName("user1").profileImage("URL").build();
+        Profile profile = Profile.createWithIntroduce().nickName("user1").profileImage("URL").introduce("팝니다.").build();
         User user = new User("user1", "12345", profile, UserRole.USER, false);
         userRepository.save(user);
         Item item = new Item("item1", "item1", 1L, 1000L, user);

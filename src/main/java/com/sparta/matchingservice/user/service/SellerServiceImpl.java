@@ -21,6 +21,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class SellerServiceImpl implements SellerService{
     private final ItemRepository itemRepository;
     private final UserRepository userRepository;

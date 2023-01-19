@@ -26,6 +26,8 @@ public class SecurityService {
     @Transactional
     public SecurityResponseDto signup(SignupRequestDto signupRequestDto) {
         String userName = signupRequestDto.getUserName();
+        String nickName = signupRequestDto.getNickName();
+        String profileImage = signupRequestDto.getProfileImage();
         String password = passwordEncoder.encode(signupRequestDto.getPassword());
 
         // 회원 중복 확인
@@ -47,6 +49,8 @@ public class SecurityService {
                     .userName(userName)
                     .password(password)
                     .userRole(role)
+                    .nickName(nickName)
+                    .profileImage(profileImage)
                     .build();
         User savedUser = userRepository.save(user);
         return new SecurityResponseDto("회원가입 완료",201,(savedUser.getUserRole().getAuthority() == "ROLE_ADMIN"));

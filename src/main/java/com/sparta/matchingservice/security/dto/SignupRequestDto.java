@@ -17,6 +17,10 @@ public class SignupRequestDto {
     @Pattern(regexp = "[a-zA-z0-9]+", message = "Special characters(including spaces) are not allowed.")
     private String password;
 
+    private String nickName;
+
+    private String profileImage;
+
     private boolean admin = false;
     private String adminToken = "";
 

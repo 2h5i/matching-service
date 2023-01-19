@@ -51,16 +51,6 @@ public class CustomerController {
     @GetMapping("/api/users/seller/profile/{userId}")
     public SelectedSellerResponseDto selectedSeller(@PathVariable Long userId , @RequestParam int currentPage) {
         // 셀러 권한 확인하고 넘기기
-        User user = User.builder()
-                .userName("nana")
-                .password("asdfasdf")
-                .userRole(UserRole.SELLER)
-                .profile(Profile.createWithIntroduce()
-                        .nickName("banana")
-                        .profileImage("wkdkfjwlxfnc")
-                        .introduce("내물건 사세요")
-                        .build())
-                .build();
         return sellerService.selectSeller(userId,currentPage);
     }
 

@@ -67,7 +67,7 @@ public class SellerServiceImpl implements SellerService{
 
         return new SelectedSellerResponseDto(user.getUserName(), user.getProfile().getIntroduce(),itemList);
 
-        
+
     }
 
 

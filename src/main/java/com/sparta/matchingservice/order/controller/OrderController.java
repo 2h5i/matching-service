@@ -2,6 +2,8 @@ package com.sparta.matchingservice.order.controller;
 
 import com.sparta.matchingservice.order.service.OrderService;
 import com.sparta.matchingservice.user.dto.OrderListResponseDto;
+import com.sparta.matchingservice.user.dto.OrderRequestDto;
+import com.sparta.matchingservice.user.dto.OrderResponseDto;
 import com.sparta.matchingservice.user.entity.Profile;
 import com.sparta.matchingservice.user.entity.User;
 import com.sparta.matchingservice.user.entity.UserRole;
@@ -17,6 +19,15 @@ import java.util.List;
 public class OrderController {
 
     private final OrderService orderService;
+
+    //주문 요청 보내기
+    @PostMapping("/api/orders/{itemId}")
+    public OrderResponseDto createOrderRequest(@RequestBody OrderRequestDto orderRequestDto, @PathVariable Long itemId){
+        //todo 토큰에서 userName 꺼내기
+        String userName = "banana";
+        return orderService.createOrderRequest(orderRequestDto,itemId,userName);
+    }
+
     // 주문 요청 조회
     @GetMapping("/order-list")
     public List<OrderListResponseDto> getOrderList(Pageable pageable) {

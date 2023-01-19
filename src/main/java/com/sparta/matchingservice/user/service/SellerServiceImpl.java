@@ -7,11 +7,15 @@ import com.sparta.matchingservice.user.entity.Profile;
 import com.sparta.matchingservice.user.entity.User;
 import com.sparta.matchingservice.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -29,6 +33,26 @@ public class SellerServiceImpl implements SellerService{
                     updateProfileForm.getProfileImage(), updateProfileForm.getIntroduce());
             userRepository.save(findUser);
         }
+    }
+
+
+    //전체셀러 목록 조회
+    @Override
+    public List<SellerProfileResponseDto> allSellerList(int currentPage){
+        if(currentPage==0) currentPage=1;
+        Page<User> userAll = userRepository.findAll(PageRequest.of(currentPage-1,10, Sort.Direction.DESC));
+
+        List<SellerProfileResponseDto> sellerProfileResponseDtos = new ArrayList<>();
+
+        for(User user:userAll){
+            if(!user.getProfile().getIntroduce().isEmpty()) {
+                sellerProfileResponseDtos.add(new SellerProfileResponseDto(user.getUserName(), user.getProfile().getIntroduce()));
+            }
+        }
+
+        return sellerProfileResponseDtos;
+
+
     }
 
 }

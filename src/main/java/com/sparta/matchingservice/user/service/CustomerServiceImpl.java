@@ -1,27 +1,30 @@
 package com.sparta.matchingservice.user.service;
 
 import com.sparta.matchingservice.item.entity.Item;
+import com.sparta.matchingservice.item.repository.ItemRepository;
+import com.sparta.matchingservice.user.dto.ItemsResponseDto;
 import com.sparta.matchingservice.user.dto.ModifyUserProfileRequestDto;
 import com.sparta.matchingservice.user.dto.UserProfileResponseDto;
-import com.sparta.matchingservice.user.dto.UsersignupRequestDto;
-import com.sparta.matchingservice.user.entity.Profile;
 import com.sparta.matchingservice.user.entity.User;
-import com.sparta.matchingservice.user.entity.UserRole;
-import com.sparta.matchingservice.user.exception.UserNameNotFoundException;
+import com.sparta.matchingservice.common.exception.UserNameNotFoundException;
 import com.sparta.matchingservice.user.repository.UserRepository;
-import com.sparta.matchingservice.user.exception.IdNotFoundException;
+import com.sparta.matchingservice.common.exception.IdNotFoundException;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class CustomerServiceImpl implements CustomerService {
     private final UserRepository userRepository;
+    private final ItemRepository itemRepository;
 
     //프로필 수정 서비스
     @Override
@@ -55,6 +58,9 @@ public class CustomerServiceImpl implements CustomerService {
         User user = userRepository.findByUserName(userName).orElseThrow(UserNameNotFoundException::new);
         return new UserProfileResponseDto(user);
     }
+
+
+
 
 
 

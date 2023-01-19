@@ -1,5 +1,6 @@
 package com.sparta.matchingservice.user.dto;
 
+import com.sparta.matchingservice.item.entity.Item;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -18,5 +19,12 @@ public class ItemsResponseDto {
         this.itemContent = itemContent;
         this.stockCount = stockCount;
         this.itemPrice = itemPrice;
+    }
+    public ItemsResponseDto(Item item) {
+        this.itemId = item.getId();
+        this.itemName = item.getItemName();
+        this.itemContent = item.getItemContent();
+        this.stockCount = item.getStockCount();
+        this.itemPrice = item.getItemPrice();
     }
 }

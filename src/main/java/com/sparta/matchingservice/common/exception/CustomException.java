@@ -1,4 +1,4 @@
-package com.sparta.matchingservice.user.exception;
+package com.sparta.matchingservice.common.exception;
 
 import java.time.LocalDateTime;
 

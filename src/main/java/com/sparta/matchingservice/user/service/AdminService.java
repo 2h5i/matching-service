@@ -13,9 +13,6 @@ public interface AdminService {
 
     Page<ResponseSellerAdmin> getSellerAdmin(Pageable pageable, SearchSellersAdmin searchSellersAdmin);
 
-    // TODO : SELLER ENROLLMENT로 이동
-//    Page<ResponseCustomersAdmin> getSellerEnrollmentCustomersAdmin(Pageable pageable);
-
     void approveSellerEnrollment(Long customerId);
 
     void deleteSellerAuthority(Long sellerId);

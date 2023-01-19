@@ -8,5 +8,6 @@ import java.util.List;
 
 public interface SellerService {
     void updateMyProfile(Long userId, UpdateProfileForm updateProfileForm, User user);
+    List<SellerProfileResponseDto> allSellerList(int currentPage);
 
 }

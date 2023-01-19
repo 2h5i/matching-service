@@ -1,5 +1,7 @@
 package com.sparta.matchingservice.user.service;
 
+import com.sparta.matchingservice.sellerenrollment.entity.SellerEnrollment;
+import com.sparta.matchingservice.sellerenrollment.service.SellerEnrollmentService;
 import com.sparta.matchingservice.user.dto.ResponseCustomersAdmin;
 import com.sparta.matchingservice.user.dto.ResponseSellerAdmin;
 import com.sparta.matchingservice.user.dto.SearchCustomersAdmin;
@@ -17,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class AdminServiceImpl implements AdminService{
 
     private final UserRepository userRepository;
+    private final SellerEnrollmentService sellerEnrollmentService;
 
     @Transactional
     @Override
@@ -31,16 +34,17 @@ public class AdminServiceImpl implements AdminService{
         return userRepository.getSellersByCondition(pageable, searchSellersAdmin);
     }
 
-    // TODO : SellerEnrollment로 이동
-//    @Override
-//    public Page<ResponseCustomersAdmin> getSellerEnrollmentCustomersAdmin(Pageable pageable) {
-//        return null;
-//    }
-
     @Transactional
     @Override
     public void approveSellerEnrollment(Long customerId) {
+        User customer = userRepository.findById(customerId).orElseThrow(
+                () -> new IllegalArgumentException("해당 사용자가 존재하지 않습니다.")
+        );
 
+        SellerEnrollment sellerEnrollment = sellerEnrollmentService.findSellerEnrollmentByCustomer(customer);
+
+        customer.changeAuthorityCustomerToSeller(sellerEnrollment.getIntroduce());
+        userRepository.saveAndFlush(customer);
     }
 
     @Transactional

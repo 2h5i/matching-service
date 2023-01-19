@@ -20,19 +20,20 @@ public class Profile {
 
     private String introduce;
 
-    @Builder
+    @Builder(builderClassName = "createWithoutIntroduce", builderMethodName = "createWithoutIntroduce")
     public Profile(String nickName,String profileImage) {
         this.nickName = nickName;
         this.profileImage = profileImage;
     }
 
-    public void updateSellerProfile(String nickName, String profileImage, String introduce) {
+    @Builder(builderClassName = "createWithIntroduce", builderMethodName = "createWithIntroduce")
+    public Profile(String nickName, String profileImage, String introduce) {
         this.nickName = nickName;
         this.profileImage = profileImage;
         this.introduce = introduce;
     }
 
-    public Profile(String nickName, String profileImage, String introduce) {
+    public void updateSellerProfile(String nickName, String profileImage, String introduce) {
         this.nickName = nickName;
         this.profileImage = profileImage;
         this.introduce = introduce;

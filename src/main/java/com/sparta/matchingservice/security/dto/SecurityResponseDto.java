@@ -5,7 +5,6 @@ import lombok.Setter;
 import lombok.NoArgsConstructor;
 
 @Getter
-@Setter
 @NoArgsConstructor
 public class SecurityResponseDto {
     private String msg;

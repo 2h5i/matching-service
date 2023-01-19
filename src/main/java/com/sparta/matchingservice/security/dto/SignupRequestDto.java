@@ -6,7 +6,6 @@ import lombok.Setter;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
-@Setter
 @Getter
 public class SignupRequestDto {
     @Size(min = 4, max = 10, message = "Name should be 4-10 characters long")

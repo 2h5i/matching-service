@@ -51,15 +51,17 @@ public class WebSecurityConfig {
         // permitAll로 유저 회원가입/로그인 api는 열고, 나머지는 authenticated 되어야함.
         // 그리고 이 모든 작업 전에 JwtAuthFilter , UsernamePasswordAuth~ 필터 거쳐야함.
 
-//        httpSecurity.formLogin().disable();
+        httpSecurity.formLogin().disable();
         // formlogin 사용하지 않으므로 디스에이블
 
+        /*
         httpSecurity
                 .formLogin()
                 .loginProcessingUrl("/api/auth/login")
                 .successHandler(customAuthenticationSuccessHandler)
                 .failureHandler(customAuthenticationFailureHandler)
         ;
+        */
 
         httpSecurity.exceptionHandling().accessDeniedHandler(new CustomAccessDeniedHandler() {});
         // 인가실패 핸들링

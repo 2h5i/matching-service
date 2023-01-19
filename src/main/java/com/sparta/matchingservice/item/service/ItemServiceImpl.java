@@ -2,6 +2,7 @@ package com.sparta.matchingservice.item.service;
 
 import com.sparta.matchingservice.item.entity.Item;
 import com.sparta.matchingservice.item.repository.ItemRepository;
+import com.sparta.matchingservice.order.repository.OrderRepository;
 import com.sparta.matchingservice.user.dto.ItemsResponseDto;
 import com.sparta.matchingservice.user.dto.RegisterItemForm;
 import com.sparta.matchingservice.user.dto.UpdateItemForm;
@@ -24,8 +25,10 @@ import java.util.List;
 public class ItemServiceImpl implements ItemService{
 
     private final ItemRepository itemRepository;
+    private final OrderRepository orderRepository;
 
     @Override
+    @Transactional(readOnly = true)
     public List<ItemsResponseDto> getMyItems(Pageable pageable, User user) {
         List<Item> myItems = itemRepository.findAllByUserId(user.getId(), pageable).getContent();
         List<ItemsResponseDto> responseDtoList = new ArrayList<>();
@@ -73,6 +76,7 @@ public class ItemServiceImpl implements ItemService{
                 () -> new IllegalStateException("없는 아이템입니다.")
         );
         if (findItem.getUser().getId() == userId) { // 등록한 유저만 삭제 가능
+            orderRepository.fi
             itemRepository.deleteById(itemId);
         }
     }

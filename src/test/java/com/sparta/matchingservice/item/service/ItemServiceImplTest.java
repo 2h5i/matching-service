@@ -106,6 +106,7 @@ class ItemServiceImplTest {
     @Test
     public void 상품_삭제() {
         itemService.deleteItem(1L, 1L);
+//        itemRepository.deleteById(1L);
         List<Item> items = itemRepository.findAll();
         assertThat(items.size()).isEqualTo(5);
     }

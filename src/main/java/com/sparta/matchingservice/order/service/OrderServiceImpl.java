@@ -18,6 +18,8 @@ import java.util.List;
 public class OrderServiceImpl implements OrderService {
 
     private final OrderRepository orderRepository;
+
+    @Transactional(readOnly = true)
     @Override
     public List<OrderListResponseDto> getAllOrderList(Pageable pageable) {
         List<Order> orderList = orderRepository.findAll(pageable).getContent();

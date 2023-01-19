@@ -3,6 +3,7 @@ package com.sparta.matchingservice.security.controller;
 import com.sparta.matchingservice.security.service.SecurityService;
 import com.sparta.matchingservice.security.dto.SignupRequestDto;
 import com.sparta.matchingservice.security.dto.LoginRequestDto;
+import com.sparta.matchingservice.security.dto.SecurityResponseDto;
 import com.sparta.matchingservice.security.util.JwtUtil;
 
 import org.springframework.web.bind.annotation.RestController;
@@ -22,13 +23,8 @@ public class SecurityController {
     private final SecurityService securityService;
 
     @PostMapping("/signup")
-    public String signup(@RequestBody @Valid SignupRequestDto signupRequestDto) {
-        securityService.signup(signupRequestDto);
-        if (signupRequestDto.isAdmin()) {
-            return "ADMIN";
-        } else {
-            return "회원가입 성공";
-        }
+    public SecurityResponseDto signup(@RequestBody @Valid SignupRequestDto signupRequestDto) {
+        return securityService.signup(signupRequestDto);
     }
 
     @PostMapping("/login")

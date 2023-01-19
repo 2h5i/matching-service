@@ -48,8 +48,8 @@ public class SecurityService {
                     .password(password)
                     .userRole(role)
                     .build();
-        userRepository.save(user);
-        return new SecurityResponseDto("회원가입 완료",201);
+        User savedUser = userRepository.save(user);
+        return new SecurityResponseDto("회원가입 완료",201,(savedUser.getUserRole().getAuthority() == "ROLE_ADMIN"));
     }
 
     @Transactional(readOnly = true)

@@ -2,6 +2,7 @@ package com.sparta.matchingservice.security.service;
 
 import com.sparta.matchingservice.security.dto.LoginRequestDto;
 import com.sparta.matchingservice.security.dto.SignupRequestDto;
+import com.sparta.matchingservice.security.dto.SecurityResponseDto;
 import com.sparta.matchingservice.user.entity.User;
 import com.sparta.matchingservice.user.entity.UserRole;
 import com.sparta.matchingservice.security.util.JwtUtil;
@@ -23,7 +24,7 @@ public class SecurityService {
 
 
     @Transactional
-    public void signup(SignupRequestDto signupRequestDto) {
+    public SecurityResponseDto signup(SignupRequestDto signupRequestDto) {
         String userName = signupRequestDto.getUserName();
         String password = passwordEncoder.encode(signupRequestDto.getPassword());
 
@@ -48,6 +49,7 @@ public class SecurityService {
                     .userRole(role)
                     .build();
         userRepository.save(user);
+        return new SecurityResponseDto("회원가입 완료",201);
     }
 
     @Transactional(readOnly = true)

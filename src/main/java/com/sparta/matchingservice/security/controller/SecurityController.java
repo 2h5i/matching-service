@@ -3,6 +3,7 @@ package com.sparta.matchingservice.security.controller;
 import com.sparta.matchingservice.security.service.SecurityService;
 import com.sparta.matchingservice.security.dto.SignupRequestDto;
 import com.sparta.matchingservice.security.dto.LoginRequestDto;
+import com.sparta.matchingservice.security.util.JwtUtil;
 
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,8 +33,8 @@ public class SecurityController {
 
     @PostMapping("/login")
     public String login(@RequestBody LoginRequestDto loginRequestDto, HttpServletResponse response) {
-        //String generatedToken = securityService.login(loginRequestDto);
-        //response.addHeader(JwtUtil.AUTHORIZATION_HEADER, generatedToken);
+        String generatedToken = securityService.login(loginRequestDto);
+        response.addHeader(JwtUtil.AUTHORIZATION_HEADER, generatedToken);
         return "로그인 성공";
     }
 }

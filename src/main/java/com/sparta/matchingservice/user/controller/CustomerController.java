@@ -39,12 +39,12 @@ public class CustomerController {
 
     //전체 판매자 목록
     @GetMapping("/api/users/sellers/profile")
-    public List<SellerProfileResponseDto> allSellerList(int currentPage){
+    public List<SellerProfileResponseDto> allSellerList(@RequestParam int currentPage){
         return sellerService.allSellerList(currentPage);
     }
 
     //선택된 판매자 정보 조회
- 
+
 
     // 판매자 요청폼 작성
 

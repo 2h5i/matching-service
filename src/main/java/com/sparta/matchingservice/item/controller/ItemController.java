@@ -54,8 +54,8 @@ public class ItemController {
 
     //전체 판매 상품 조회
     //todo 판매상품조회 테스트코드 만들고 돌려보기.
-    @GetMapping("/")
-    public List<ItemsResponseDto> readItem(int currentPage){
+    @GetMapping("/items")
+    public List<ItemsResponseDto> readItem(@RequestParam int currentPage){
         return itemService.readItem(currentPage);
     }
 

@@ -45,18 +45,28 @@ public class User extends BaseEntity {
     }
 
     public void changeAuthoritySellerToCustomer() {
-        this.profile = Profile.builder()
+        this.profile = Profile.createWithoutIntroduce()
                 .nickName(this.profile.getNickName())
                 .profileImage(this.getProfile().getProfileImage())
                 .build();
         this.userRole = UserRole.USER;
     }
 
+    public void changeAuthorityCustomerToSeller(String introduce) {
+        this.profile = Profile.createWithIntroduce()
+                .nickName(this.profile.getNickName())
+                .profileImage(this.profile.getProfileImage())
+                .introduce(introduce)
+                .build();
+        this.userRole = UserRole.SELLER;
+
+    }
+
     public void modufyProfile(String nickName, String image) {
-        this.profile = Profile.builder()
+        this.profile = Profile.createWithoutIntroduce()
                 .nickName(nickName)
                 .profileImage(image)
                 .build();
-
     }
+
 }

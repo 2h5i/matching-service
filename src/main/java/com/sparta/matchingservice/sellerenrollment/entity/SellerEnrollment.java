@@ -4,6 +4,8 @@ import com.sparta.matchingservice.common.entity.BaseEntity;
 import com.sparta.matchingservice.user.entity.User;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -27,6 +29,7 @@ public class SellerEnrollment extends BaseEntity {
     private String introduce;
 
     @Column(nullable = false)
+    @Enumerated(value = EnumType.STRING)
     private EnrollmentStatus enrollmentStatus;
 
     @OneToOne

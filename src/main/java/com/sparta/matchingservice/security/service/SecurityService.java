@@ -5,6 +5,7 @@ import com.sparta.matchingservice.security.dto.SignupRequestDto;
 import com.sparta.matchingservice.security.dto.SecurityResponseDto;
 import com.sparta.matchingservice.user.entity.User;
 import com.sparta.matchingservice.user.entity.UserRole;
+import com.sparta.matchingservice.user.entity.Profile;
 import com.sparta.matchingservice.security.util.JwtUtil;
 import com.sparta.matchingservice.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -44,13 +45,16 @@ public class SecurityService {
             }
             role = UserRole.ADMIN;
         }
+        Profile profile = Profile.createWithoutIntroduce()
+                            .nickName(nickName)
+                            .profileImage(profileImage)
+                            .build();
 
         User user = User.builder()
                     .userName(userName)
                     .password(password)
                     .userRole(role)
-                    .nickName(nickName)
-                    .profileImage(profileImage)
+                    .profile(profile)
                     .build();
         User savedUser = userRepository.save(user);
         return new SecurityResponseDto("회원가입 완료",201,(savedUser.getUserRole().getAuthority() == "ROLE_ADMIN"));

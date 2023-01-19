@@ -77,6 +77,7 @@ public class ItemServiceImpl implements ItemService{
     }
 
 
+    //전체 상품 조회
     @Override
     @Transactional(readOnly = true)
     public List<ItemsResponseDto> readItem(int currentPage){

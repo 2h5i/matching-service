@@ -1,5 +1,6 @@
 package com.sparta.matchingservice.user.service;
 
+import com.sparta.matchingservice.common.exception.IdNotFoundException;
 import com.sparta.matchingservice.item.entity.Item;
 import com.sparta.matchingservice.item.repository.ItemRepository;
 import com.sparta.matchingservice.user.dto.*;
@@ -40,6 +41,7 @@ public class SellerServiceImpl implements SellerService{
 
     //전체셀러 목록 조회
     @Override
+    @Transactional(readOnly = true)
     public List<SellerProfileResponseDto> allSellerList(int currentPage){
         if(currentPage==0) currentPage=1;
         Page<User> userAll = userRepository.findAll(PageRequest.of(currentPage-1,10, Sort.Direction.DESC));
@@ -54,7 +56,24 @@ public class SellerServiceImpl implements SellerService{
 
         return sellerProfileResponseDtos;
 
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public SelectedSellerResponseDto selectSeller(Long userid, int currentPage){
+        //레파지토리에서  List<Item> sellerItem 를 뽑아내야함.
+        //user 객체를 통째로 넘겨받아서
+        //아이템 레파지토리에 접근을 해서 그 아이템 레파지토리에서 파인드바이 유저로
+
+        User user =userRepository.findById(userid).orElseThrow(IdNotFoundException::new);
+        //리스트로 어떻게 가져오지..?
+        List<Item> itemList =  itemRepository.findByUser(user);
+
+        return new SelectedSellerResponseDto(user.getUserName(), user.getProfile().getIntroduce(),itemList);
+
 
     }
+
+
 
 }

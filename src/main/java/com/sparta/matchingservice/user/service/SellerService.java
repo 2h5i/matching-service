@@ -10,4 +10,6 @@ public interface SellerService {
     void updateMyProfile(Long userId, UpdateProfileForm updateProfileForm, User user);
     List<SellerProfileResponseDto> allSellerList(int currentPage);
 
+    SelectedSellerResponseDto selectSeller(Long userid, int currentPage);
+
 }

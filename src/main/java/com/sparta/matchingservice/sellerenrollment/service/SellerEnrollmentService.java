@@ -1,5 +1,6 @@
 package com.sparta.matchingservice.sellerenrollment.service;
 
+import com.sparta.matchingservice.sellerenrollment.dto.RequestSellerEnrollmentDto;
 import com.sparta.matchingservice.sellerenrollment.dto.ResponseSellerEnrollment;
 import com.sparta.matchingservice.sellerenrollment.dto.SearchSellerEnrollment;
 import com.sparta.matchingservice.sellerenrollment.entity.SellerEnrollment;
@@ -13,5 +14,7 @@ public interface SellerEnrollmentService {
                                                                      Pageable pageable);
 
     SellerEnrollment findSellerEnrollmentByCustomer(User customer);
+
+    ResponseSellerEnrollment enrollmentSeller(RequestSellerEnrollmentDto requestSellerEnrollmentDto,String userName);
 
 }

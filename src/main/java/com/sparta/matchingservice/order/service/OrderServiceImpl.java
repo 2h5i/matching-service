@@ -12,6 +12,7 @@ import com.sparta.matchingservice.user.dto.OrderResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +27,7 @@ public class OrderServiceImpl implements OrderService {
 
     //주문요청 작성
     @Override
+    @Transactional
     public OrderResponseDto createOrderRequest(OrderRequestDto orderRequestDto , Long itemId, String userName){
         // 상품 아이디 확인
         Item item = itemRepository.findById(itemId).orElseThrow(IdNotFoundException::new);

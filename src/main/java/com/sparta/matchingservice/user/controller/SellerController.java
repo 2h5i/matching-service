@@ -8,8 +8,6 @@ import com.sparta.matchingservice.user.service.SellerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api")
@@ -24,6 +22,7 @@ public class SellerController {
         sellerService.updateMyProfile(userId, request, User.builder().userName("user1").profile(profile)
                 .userRole(UserRole.SELLER).build());
     }
+
 
 
 }

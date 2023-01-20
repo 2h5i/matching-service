@@ -74,8 +74,8 @@ class ItemServiceImplTest {
         User findUser = userRepository.findById(1L).orElseThrow(
                 () -> new IllegalStateException("유저 없음")
         );
-        List<ItemsResponseDto> myItems = itemService.getMyItems(pageable, findUser);
-        assertThat(myItems.size()).isEqualTo(5);
+        Page<ItemsResponseDto> myItems = itemService.getMyItems(pageable, findUser);
+        assertThat(myItems.getContent().size()).isEqualTo(5);
     }
 
     @Test

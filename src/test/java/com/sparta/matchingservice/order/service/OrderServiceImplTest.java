@@ -59,7 +59,7 @@ class OrderServiceImplTest {
 
         Pageable pageable = PageRequest.of(4, 3);
 
-        List<OrderListResponseDto> allOrderList = orderService.getAllOrderList(pageable);
+        List<OrderListResponseDto> allOrderList = orderService.getAllOrderList(pageable).getContent();
         allOrderList.stream().forEach(
                 (order) -> System.out.println("order = " + order)
         );
@@ -67,16 +67,7 @@ class OrderServiceImplTest {
         Page<Order> all = orderRepository.findAll(pageable);
         List<OrderListResponseDto> responseDtoList = new ArrayList<>();
         all.getContent().stream().forEach(
-                (order -> {
-                    OrderListResponseDto responseDto = OrderListResponseDto.builder()
-                            .itemId(order.getId())
-                            .customerId(order.getCustomer().getId())
-                            .orderStatus(order.getOrderStatus())
-                            .orderCount(order.getOrderCount())
-                            .content(order.getContent())
-                            .build();
-                    responseDtoList.add(responseDto);
-                }));
+                (OrderListResponseDto::new));
 
         System.out.println("==========================================");
 

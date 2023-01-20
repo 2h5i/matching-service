@@ -24,7 +24,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CustomerServiceImpl implements CustomerService {
     private final UserRepository userRepository;
-    private final ItemRepository itemRepository;
 
     //프로필 수정 서비스
     @Override
@@ -42,10 +41,7 @@ public class CustomerServiceImpl implements CustomerService {
         user.modufyProfile(nickName,profileImage);
 
         // 유저에 프로필 닉네임이 잘 수정됐나 테스트...
-        System.out.println("레파지토리 저장 전 유저닉네임 : " + user.getProfile().getNickName().toString()); //Todo 나중에 지우기
         userRepository.save(user);
-        System.out.println("레파지토리에 저장 후 유저닉네임 : " + userRepository.findById(id).get().getProfile().getNickName().toString()); // Todo 나중에 지우기2
-
         return new UserProfileResponseDto(user);
 
     }
@@ -54,9 +50,11 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     @Transactional(readOnly = true)
     public UserProfileResponseDto readProfile(String userName){
+
         //userName으로 레파지토리에서 프로필 찾기
         User user = userRepository.findByUserName(userName).orElseThrow(UserNameNotFoundException::new);
         return new UserProfileResponseDto(user);
+
     }
 
 

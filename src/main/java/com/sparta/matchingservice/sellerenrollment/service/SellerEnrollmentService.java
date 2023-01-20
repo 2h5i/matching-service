@@ -15,6 +15,6 @@ public interface SellerEnrollmentService {
 
     SellerEnrollment findSellerEnrollmentByCustomer(User customer);
 
-    ResponseSellerEnrollment enrollmentSeller(RequestSellerEnrollmentDto requestSellerEnrollmentDto,String userName);
+    ResponseSellerEnrollment enrollmentSeller(RequestSellerEnrollmentDto requestSellerEnrollmentDto,User user);
 
 }

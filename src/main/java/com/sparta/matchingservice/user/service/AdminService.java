@@ -17,4 +17,6 @@ public interface AdminService {
 
     void deleteSellerAuthority(Long sellerId);
 
+
+
 }

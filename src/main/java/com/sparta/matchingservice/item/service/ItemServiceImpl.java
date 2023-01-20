@@ -25,7 +25,6 @@ import java.util.List;
 public class ItemServiceImpl implements ItemService{
 
     private final ItemRepository itemRepository;
-    private final OrderRepository orderRepository;
 
     @Override
     @Transactional(readOnly = true)

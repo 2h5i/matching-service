@@ -21,7 +21,7 @@ public class SellerEnrollmentController {
 
 
 
-    //판매자 권한 요청
+    //판매자 권한 요청 보기
     @GetMapping("/want-seller")
     @ResponseStatus(HttpStatus.OK)
     public Page<ResponseSellerEnrollment> getSellerEnrollmentCustomersAdmin(SearchSellerEnrollment searchSellerEnrollment,

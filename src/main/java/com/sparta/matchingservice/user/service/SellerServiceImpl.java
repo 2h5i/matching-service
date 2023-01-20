@@ -44,7 +44,7 @@ public class SellerServiceImpl implements SellerService{
     @Transactional(readOnly = true)
     public List<SellerProfileResponseDto> allSellerList(int currentPage){
         if(currentPage==0) currentPage=1;
-        Page<User> userAll = userRepository.findAll(PageRequest.of(currentPage-1,10, Sort.Direction.DESC));
+        Page<User> userAll = userRepository.findAll(PageRequest.of(currentPage-1,2, Sort.Direction.DESC));
 
         List<SellerProfileResponseDto> sellerProfileResponseDtos = new ArrayList<>();
 

@@ -20,14 +20,14 @@ import org.springframework.transaction.annotation.Transactional;
 public class SellerEnrollmentServiceImpl implements SellerEnrollmentService{
 
     private final SellerEnrollmentRepository sellerEnrollmentRepository;
-    private final UserRepository userRepository;
 
 
+    // 판매자권한 등록 요청
     @Override
     @Transactional
-    public ResponseSellerEnrollment enrollmentSeller(RequestSellerEnrollmentDto requestSellerEnrollmentDto, String userName){
+    public ResponseSellerEnrollment enrollmentSeller(RequestSellerEnrollmentDto requestSellerEnrollmentDto, User user){
         //레파지토리에서 userName으로 user객체 찾기
-        User user = userRepository.findByUserName(userName).orElseThrow(UserNameNotFoundException::new);
+//        User user = userRepository.findByUserName(userName).orElseThrow(UserNameNotFoundException::new);
 
         SellerEnrollment sellerEnrollment = SellerEnrollment.builder()
                 .introduce(requestSellerEnrollmentDto.getIntroduce())
@@ -39,6 +39,7 @@ public class SellerEnrollmentServiceImpl implements SellerEnrollmentService{
 
     }
 
+    //셀러 등록 고객 보기
     @Transactional
     @Override
     public Page<ResponseSellerEnrollment> getSellerEnrollmentCustomersAdmin(SearchSellerEnrollment searchSellerEnrollment,
@@ -47,6 +48,7 @@ public class SellerEnrollmentServiceImpl implements SellerEnrollmentService{
         return sellerEnrollmentRepository.getSellerEnrollmentsByCondition(searchSellerEnrollment, pageable);
     }
 
+    //고객 등록신청하는 판매자 찾기
     @Transactional
     @Override
     public SellerEnrollment findSellerEnrollmentByCustomer(User customer) {

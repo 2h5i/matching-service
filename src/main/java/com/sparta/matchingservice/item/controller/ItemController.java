@@ -10,6 +10,7 @@ import com.sparta.matchingservice.user.entity.User;
 import com.sparta.matchingservice.user.entity.UserRole;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,24 +25,28 @@ public class ItemController {
 
     // 내 판매 상품 조회
     @GetMapping("/users/seller/items")
+    @PreAuthorize("hasRole('ROLE_SELLER')")
     public List<ItemsResponseDto> getItems(Pageable pageable, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         return itemService.getMyItems(pageable, userDetails.getUser());
     }
 
     // 판매 물품 등록
     @PostMapping("/items")
+    @PreAuthorize("hasRole('ROLE_SELLER')")
     public void registerItem(@RequestBody RegisterItemForm requestForm, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         itemService.registerItem(requestForm, userDetails.getUser());
     }
 
     // 판매 물품 수정
     @PutMapping("/items/{itemId}")
+    @PreAuthorize("hasRole('ROLE_SELLER')")
     public void updateItem(@PathVariable Long itemId, @RequestBody UpdateItemForm requestForm, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         itemService.updateItem(itemId, requestForm, userDetails.getUser().getId());
     }
 
     // 판매 물품 삭제
     @DeleteMapping("/items/{itemId}")
+    @PreAuthorize("hasRole('ROLE_SELLER')")
     public void deleteItem(@PathVariable Long itemId, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         itemService.deleteItem(itemId, userDetails.getUser().getId());
     }

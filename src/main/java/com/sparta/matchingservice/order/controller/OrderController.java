@@ -10,6 +10,7 @@ import com.sparta.matchingservice.user.entity.Profile;
 import com.sparta.matchingservice.user.entity.User;
 import com.sparta.matchingservice.user.entity.UserRole;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -34,15 +35,15 @@ public class OrderController {
 
     // 전체 주문 요청 조회
     @GetMapping("/order-list")
-//    @PreAuthorize("hasRole('ROLE_SELLER') or hasRole('ROLE_ADMIN')") // 판매자와 관리자 일때만 전체 주문 요청 조회 가능
-    public List<OrderListResponseDto> getOrderList(Pageable pageable, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+    @PreAuthorize("hasRole('ROLE_SELLER') or hasRole('ROLE_ADMIN')") // 판매자와 관리자 일때만 전체 주문 요청 조회 가능
+    public Page<OrderListResponseDto> getOrderList(Pageable pageable) {
         return orderService.getAllOrderList(pageable);
     }
 
     // 주문 요청 처리
     @PatchMapping("/orders/{orderId}")
-//    @PreAuthorize("hasRole('ROLE_SELLER')")
+    @PreAuthorize("hasRole('ROLE_SELLER')")
     public void matchingOrder(@PathVariable Long orderId, @AuthenticationPrincipal UserDetailsImpl userDetails) {
-        if(userDetails.getUser().getUserRole() == UserRole.SELLER) orderService.matchingOrder(orderId);
+        orderService.matchingOrder(orderId);
     }
 }

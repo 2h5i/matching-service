@@ -27,21 +27,21 @@ public class ItemController {
 
     // 내 판매 상품 조회
     @GetMapping("/myItems")
-//    @PreAuthorize("hasRole('ROLE_SELLER')")
+    @PreAuthorize("hasRole('ROLE_SELLER')")
     public Page<ItemsResponseDto> getItems(@PageableDefault(size = 5) Pageable pageable, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         return itemService.getMyItems(pageable, userDetails.getUser());
     }
 
     // 판매 물품 등록
     @PostMapping("/items")
-//    @PreAuthorize("hasRole('ROLE_SELLER')")
+    @PreAuthorize("hasRole('ROLE_SELLER')")
     public void registerItem(@RequestBody RegisterItemForm requestForm, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         itemService.registerItem(requestForm, userDetails.getUser());
     }
 
     // 판매 물품 수정
     @PutMapping("/items/{itemId}")
-//    @PreAuthorize("hasRole('ROLE_SELLER')")
+    @PreAuthorize("hasRole('ROLE_SELLER')")
     public void updateItem(@PathVariable Long itemId, @RequestBody UpdateItemForm requestForm, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         itemService.updateItem(itemId, requestForm, userDetails.getUser().getId());
     }

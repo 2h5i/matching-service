@@ -10,12 +10,14 @@ import com.sparta.matchingservice.user.dto.OrderListResponseDto;
 import com.sparta.matchingservice.user.dto.OrderRequestDto;
 import com.sparta.matchingservice.user.dto.OrderResponseDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -45,21 +47,12 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<OrderListResponseDto> getAllOrderList(Pageable pageable) {
-        List<Order> orderList = orderRepository.findAll(pageable).getContent();
-        List<OrderListResponseDto> responseDtoList = new ArrayList<>();
-        orderList.stream().forEach(
-                (order -> {
-                    OrderListResponseDto responseDto = OrderListResponseDto.builder()
-                            .itemId(order.getId())
-                            .customerId(order.getCustomer().getId())
-                            .orderStatus(order.getOrderStatus())
-                            .orderCount(order.getOrderCount())
-                            .content(order.getContent())
-                            .build();
-                    responseDtoList.add(responseDto);
-                })
-        );
+    public Page<OrderListResponseDto> getAllOrderList(Pageable pageable) {
+        Optional<Item> item = itemRepository.findById(1L);
+        Order order = new Order("dd", 1L, OrderStatus.WAIT, item.get(), item.get().getUser());
+        orderRepository.save(order);
+        Page<Order> orderList = orderRepository.findAll(pageable);
+        Page<OrderListResponseDto> responseDtoList = OrderListResponseDto.toDtoList(orderList);
         return responseDtoList;
     }
 

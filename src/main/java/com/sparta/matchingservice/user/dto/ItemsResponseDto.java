@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 
+@Getter
 public class ItemsResponseDto {
     private final Long itemId;
     private final String itemName;

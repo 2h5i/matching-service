@@ -2,7 +2,6 @@ package com.sparta.matchingservice.item.service;
 
 import com.sparta.matchingservice.item.entity.Item;
 import com.sparta.matchingservice.item.repository.ItemRepository;
-import com.sparta.matchingservice.order.repository.OrderRepository;
 import com.sparta.matchingservice.user.dto.ItemsResponseDto;
 import com.sparta.matchingservice.user.dto.RegisterItemForm;
 import com.sparta.matchingservice.user.dto.UpdateItemForm;

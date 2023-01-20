@@ -8,14 +8,17 @@ import com.sparta.matchingservice.user.entity.UserRole;
 import com.sparta.matchingservice.user.entity.Profile;
 import com.sparta.matchingservice.security.util.JwtUtil;
 import com.sparta.matchingservice.user.repository.UserRepository;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.data.redis.core.RedisTemplate;
 
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 
 @Service
 @RequiredArgsConstructor
@@ -23,6 +26,8 @@ public class SecurityService {
     private final UserRepository userRepository;
     private final JwtUtil jwtUtil;
     private final PasswordEncoder passwordEncoder;
+
+    private final RedisTemplate redisTemplate;
     private static final String ADMIN_TOKEN = "AAABnvxRVklrnYxKZ0aHgTBcXukeZygoC";
 
 
@@ -77,5 +82,10 @@ public class SecurityService {
         }
         String generatedToken = jwtUtil.createToken(user.getUserName(), user.getUserRole());
         response.addHeader(JwtUtil.AUTHORIZATION_HEADER, generatedToken);
+    }
+    public void logout(HttpServletRequest request) {
+        String token = jwtUtil.resolveToken(request);
+        Long expiration = jwtUtil.getExpiration(token);
+        redisTemplate.opsForValue().set(token, "logout", expiration, TimeUnit.MILLISECONDS);
     }
 }

@@ -7,11 +7,8 @@ import com.sparta.matchingservice.security.dto.LoginRequestDto;
 import com.sparta.matchingservice.security.dto.SecurityResponseDto;
 import com.sparta.matchingservice.security.util.JwtUtil;
 
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.web.bind.annotation.*;
 
 import org.springframework.http.HttpStatus;
 
@@ -38,5 +35,9 @@ public class SecurityController {
         //response.addHeader(JwtUtil.AUTHORIZATION_HEADER, generatedToken);
         securityService.login(loginRequestDto, response);
         return new LoginResponseDto("로그인 완료",200);
+    }
+    @DeleteMapping("/logout")
+    public void logout(HttpServletRequest request) {
+        securityService.logout(request);
     }
 }

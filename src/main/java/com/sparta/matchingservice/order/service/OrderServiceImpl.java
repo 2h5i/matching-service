@@ -48,9 +48,6 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Page<OrderListResponseDto> getAllOrderList(Pageable pageable) {
-        Optional<Item> item = itemRepository.findById(1L);
-        Order order = new Order("dd", 1L, OrderStatus.WAIT, item.get(), item.get().getUser());
-        orderRepository.save(order);
         Page<Order> orderList = orderRepository.findAll(pageable);
         Page<OrderListResponseDto> responseDtoList = OrderListResponseDto.toDtoList(orderList);
         return responseDtoList;

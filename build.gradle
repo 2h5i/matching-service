@@ -21,6 +21,7 @@ dependencies {
     implementation 'org.projectlombok:lombok'
     implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta'// querydsl
     implementation platform('org.testcontainers:testcontainers-bom:1.17.6') //import bom
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 
     annotationProcessor 'org.projectlombok:lombok'
     // querydsl

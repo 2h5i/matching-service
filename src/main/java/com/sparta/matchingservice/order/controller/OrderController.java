@@ -1,22 +1,16 @@
 package com.sparta.matchingservice.order.controller;
 
-import com.sparta.matchingservice.common.exception.ForbiddenException;
 import com.sparta.matchingservice.order.service.OrderService;
 import com.sparta.matchingservice.security.util.UserDetailsImpl;
 import com.sparta.matchingservice.user.dto.OrderListResponseDto;
 import com.sparta.matchingservice.user.dto.OrderRequestDto;
 import com.sparta.matchingservice.user.dto.OrderResponseDto;
-import com.sparta.matchingservice.user.entity.Profile;
-import com.sparta.matchingservice.user.entity.User;
-import com.sparta.matchingservice.user.entity.UserRole;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor

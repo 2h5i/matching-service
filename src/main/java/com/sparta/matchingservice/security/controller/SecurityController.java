@@ -34,8 +34,9 @@ public class SecurityController {
 
     @PostMapping("/login")
     public LoginResponseDto login(@RequestBody LoginRequestDto loginRequestDto, HttpServletResponse response) {
-        String generatedToken = securityService.login(loginRequestDto);
-        response.addHeader(JwtUtil.AUTHORIZATION_HEADER, generatedToken);
+        //String generatedToken = securityService.login(loginRequestDto);
+        //response.addHeader(JwtUtil.AUTHORIZATION_HEADER, generatedToken);
+        securityService.login(loginRequestDto, response);
         return new LoginResponseDto("로그인 완료",200);
     }
 }

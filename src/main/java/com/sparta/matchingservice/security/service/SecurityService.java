@@ -61,7 +61,7 @@ public class SecurityService {
     }
 
     @Transactional(readOnly = true)
-    public String login(LoginRequestDto loginRequestDto) {
+    public void login(LoginRequestDto loginRequestDto, HttpServletResponse response) {
         String userName = loginRequestDto.getUserName();
         String password = loginRequestDto.getPassword();
 
@@ -73,6 +73,7 @@ public class SecurityService {
         if(!passwordEncoder.matches(password, user.getPassword())){
             throw  new IllegalArgumentException("비밀번호가 틀렸습니다");
         }
-        return jwtUtil.createToken(user.getUserName(), user.getUserRole());
+        String generatedToken = jwtUtil.createToken(user.getUserName(), user.getUserRole());
+        response.addHeader(JwtUtil.AUTHORIZATION_HEADER, generatedToken);
     }
 }

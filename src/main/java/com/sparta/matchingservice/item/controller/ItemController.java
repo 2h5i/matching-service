@@ -48,7 +48,7 @@ public class ItemController {
 
     // 판매 물품 삭제
     @DeleteMapping("/items/{itemId}")
-//    @PreAuthorize("hasRole('ROLE_SELLER')")
+    @PreAuthorize("hasRole('ROLE_SELLER')")
     public void deleteItem(@PathVariable Long itemId, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         itemService.deleteItem(itemId, userDetails.getUser().getId());
     }

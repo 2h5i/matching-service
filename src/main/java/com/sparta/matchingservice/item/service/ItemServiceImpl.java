@@ -8,7 +8,6 @@ import com.sparta.matchingservice.user.dto.RegisterItemForm;
 import com.sparta.matchingservice.user.dto.UpdateItemForm;
 import com.sparta.matchingservice.user.entity.User;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.validator.constraints.LuhnCheck;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -25,28 +24,12 @@ import java.util.List;
 public class ItemServiceImpl implements ItemService{
 
     private final ItemRepository itemRepository;
-    private final OrderRepository orderRepository;
 
     @Override
     @Transactional(readOnly = true)
-    public List<ItemsResponseDto> getMyItems(Pageable pageable, User user) {
-        List<Item> myItems = itemRepository.findAllByUserId(user.getId(), pageable).getContent();
-        List<ItemsResponseDto> responseDtoList = new ArrayList<>();
-        myItems.stream().forEach(
-                (item) -> {
-                    if(item.getIsAvailable()) {
-                        ItemsResponseDto responseDto = ItemsResponseDto.builder()
-                                .itemId(item.getId())
-                                .itemName(item.getItemName())
-                                .itemContent(item.getItemContent())
-                                .stockCount(item.getStockCount())
-                                .itemPrice(item.getItemPrice())
-                                .build();
-                        responseDtoList.add(responseDto);
-                    }
-
-                }
-        );
+    public Page<ItemsResponseDto> getMyItems(Pageable pageable, User user) {
+        Page<Item> myItems = itemRepository.findAllByUserId(user.getId(), pageable);
+        Page<ItemsResponseDto> responseDtoList = ItemsResponseDto.toDtoList(myItems);
         return responseDtoList;
     }
 

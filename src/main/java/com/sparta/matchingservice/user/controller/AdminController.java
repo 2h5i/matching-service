@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,6 +27,7 @@ public class AdminController {
 
     @GetMapping("/customer")
     @ResponseStatus(HttpStatus.OK)
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public Page<ResponseCustomersAdmin> getCustomersAdmin(SearchCustomersAdmin searchCustomersAdmin,Pageable pageable) {
 
         return adminService.getCustomersAdmin(pageable, searchCustomersAdmin);
@@ -33,22 +35,22 @@ public class AdminController {
 
     @GetMapping("/seller")
     @ResponseStatus(HttpStatus.OK)
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public Page<ResponseSellerAdmin> getSellerAdmin(SearchSellersAdmin searchSellersAdmin,Pageable pageable) {
 
         return adminService.getSellerAdmin(pageable, searchSellersAdmin);
     }
 
-    // TODO : SELLER ENROLLMENT로 이동
-
-
     @PutMapping("/authority-approve/{customerId}")
     @ResponseStatus(HttpStatus.OK)
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void approveSellerEnrollment(@PathVariable Long customerId) {
         adminService.approveSellerEnrollment(customerId);
     }
 
     @DeleteMapping("/delete-authority/{sellerId}")
     @ResponseStatus(HttpStatus.OK)
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void deleteSellerAuthority(@PathVariable Long sellerId) {
         adminService.deleteSellerAuthority(sellerId);
     }

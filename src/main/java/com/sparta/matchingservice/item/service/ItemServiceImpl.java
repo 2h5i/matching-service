@@ -94,8 +94,8 @@ public class ItemServiceImpl implements ItemService{
 
         List<ItemsResponseDto> itemsResponseDtos = new ArrayList<>();
 
-        for(Item item:itemPage.getContent()){
-            if(item.getIsAvailable())   itemsResponseDtos.add(new ItemsResponseDto(item));
+        for(Item item:itemPage){
+            if(item.getIsAvailable()) itemsResponseDtos.add(new ItemsResponseDto(item));
         }
 
         return itemsResponseDtos;

@@ -21,10 +21,10 @@ public class ItemController {
     private final ItemService itemService;
 
     // 내 판매 상품 조회
-    @GetMapping("/users/seller/items")
+    @GetMapping("/items/seller/items")
     public List<ItemsResponseDto> getItems(Pageable pageable) {
         Profile profile = new Profile("test", "URL", "팝니다");
-        return itemService.getMyItems(pageable, User.builder().userName("user1").profile(profile)
+        return itemService.getMyItems(pageable, User.builder().userName("user15").profile(profile)
                 .userRole(UserRole.SELLER).build());
     }
 
@@ -56,7 +56,8 @@ public class ItemController {
     //todo 판매상품조회 테스트코드 만들고 돌려보기.
     @GetMapping("/items")
     public List<ItemsResponseDto> readItem(@RequestParam int currentPage){
-        return itemService.readItem(currentPage);
+        List<ItemsResponseDto> dto = itemService.readItem(currentPage);
+        return dto;
     }
 
 

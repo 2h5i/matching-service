@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
+@Getter
 public class ItemsResponseDto {
     private final Long itemId;
     private final String itemName;

@@ -6,6 +6,7 @@ import com.sparta.matchingservice.item.repository.ItemRepository;
 import com.sparta.matchingservice.user.dto.*;
 import com.sparta.matchingservice.user.entity.Profile;
 import com.sparta.matchingservice.user.entity.User;
+import com.sparta.matchingservice.user.entity.UserRole;
 import com.sparta.matchingservice.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -43,12 +44,13 @@ public class SellerServiceImpl implements SellerService{
     @Override
     @Transactional(readOnly = true)
     public List<SellerProfileResponseDto> allSellerList(int currentPage){
+
         if(currentPage==0) currentPage=1;
-        Page<User> userAll = userRepository.findAll(PageRequest.of(currentPage-1,2, Sort.Direction.DESC));
+        Page<User> usersByUserRole = userRepository.findUsersByUserRole(UserRole.SELLER, PageRequest.of(currentPage-1, 3, Sort.by("id").descending()));
 
         List<SellerProfileResponseDto> sellerProfileResponseDtos = new ArrayList<>();
 
-        for(User user:userAll){
+        for(User user:usersByUserRole){
             if(!user.getProfile().getIntroduce().isEmpty()) {
                 sellerProfileResponseDtos.add(new SellerProfileResponseDto(user.getUserName(), user.getProfile().getIntroduce()));
             }

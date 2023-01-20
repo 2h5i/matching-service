@@ -13,6 +13,7 @@ import com.sparta.matchingservice.user.entity.UserRole;
 import com.sparta.matchingservice.user.service.CustomerService;
 import com.sparta.matchingservice.user.service.SellerService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -29,7 +30,7 @@ public class CustomerController {
     private final SellerEnrollmentService sellerEnrollmentService;
 
 
-    //나의 프로필 수정
+    //나의 프로필 수정 0
 
     @PatchMapping("/api/users/profile/{id}")
     public UserProfileResponseDto modifyUserProfile(@RequestBody ModifyUserProfileRequestDto modifyUserProfileRequestDto, @PathVariable Long id ,@AuthenticationPrincipal UserDetailsImpl userDetails) {
@@ -38,7 +39,7 @@ public class CustomerController {
         return customerService.modifyUserProfile(modifyUserProfileRequestDto, id);
     }
 
-    // 나의 프로필 조회
+    // 나의 프로필 조회 0
 
 
     @GetMapping("/api/users/profile")
@@ -49,7 +50,7 @@ public class CustomerController {
     }
     //전체 상품 목록
 
-    //전체 판매자 목록
+    //전체 판매자 목록 조회
     @GetMapping("/api/users/sellers/profile")
     public List<SellerProfileResponseDto> allSellerList(@RequestParam int currentPage) {
         return sellerService.allSellerList(currentPage);

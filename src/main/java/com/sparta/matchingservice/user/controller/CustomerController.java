@@ -35,12 +35,11 @@ public class CustomerController {
     @PatchMapping("/api/users/profile/{id}")
     public UserProfileResponseDto modifyUserProfile(@RequestBody ModifyUserProfileRequestDto modifyUserProfileRequestDto, @PathVariable Long id ,@AuthenticationPrincipal UserDetailsImpl userDetails) {
         Long userId = userDetails.getUser().getId();
-        if(!id.equals(userId)) throw new ForbiddenException();
+        if(!id.equals(userId)) throw new CustomException(ErrorCode.FORBIDDEN_FROFILE);
         return customerService.modifyUserProfile(modifyUserProfileRequestDto, id);
     }
 
-    // 나의 프로필 조회 0
-
+    // 나의 프로필 조회
 
     @GetMapping("/api/users/profile")
     public UserProfileResponseDto readProfile(@AuthenticationPrincipal UserDetailsImpl userDetails) {
@@ -50,11 +49,13 @@ public class CustomerController {
     }
     //전체 상품 목록
 
+
     //전체 판매자 목록 조회
     @GetMapping("/api/users/sellers/profile")
     public List<SellerProfileResponseDto> allSellerList(@RequestParam int currentPage) {
         return sellerService.allSellerList(currentPage);
     }
+
 
     //선택된 판매자 정보 조회
 

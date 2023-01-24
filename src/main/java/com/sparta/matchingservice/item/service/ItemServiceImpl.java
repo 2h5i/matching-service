@@ -27,7 +27,7 @@ public class ItemServiceImpl implements ItemService{
     @Override
     @Transactional(readOnly = true)
     public Page<ItemsResponseDto> getMyItems(Pageable pageable, User user) {
-        Page<Item> myItems = itemRepository.findAllByUserId(user.getId(), pageable);
+        Page<Item> myItems = itemRepository.findAllByUserIdAndIsAvailable(user.getId(),true, pageable);
         Page<ItemsResponseDto> responseDtoList = ItemsResponseDto.toDtoList(myItems);
         return responseDtoList;
     }

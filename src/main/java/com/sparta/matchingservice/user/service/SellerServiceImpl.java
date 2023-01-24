@@ -6,6 +6,7 @@ import com.sparta.matchingservice.item.repository.ItemRepository;
 import com.sparta.matchingservice.user.dto.*;
 import com.sparta.matchingservice.user.entity.Profile;
 import com.sparta.matchingservice.user.entity.User;
+import com.sparta.matchingservice.user.entity.UserRole;
 import com.sparta.matchingservice.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -43,12 +44,14 @@ public class SellerServiceImpl implements SellerService{
     @Override
     @Transactional(readOnly = true)
     public List<SellerProfileResponseDto> allSellerList(int currentPage){
+
         if(currentPage==0) currentPage=1;
-        Page<User> userAll = userRepository.findAll(PageRequest.of(currentPage-1,10, Sort.Direction.DESC));
+        Page<User> usersByUserRole = userRepository
+                .findUsersByUserRole(UserRole.SELLER, PageRequest.of(currentPage-1, 3, Sort.by("id").descending()));
 
         List<SellerProfileResponseDto> sellerProfileResponseDtos = new ArrayList<>();
 
-        for(User user:userAll){
+        for(User user:usersByUserRole){
             if(!user.getProfile().getIntroduce().isEmpty()) {
                 sellerProfileResponseDtos.add(new SellerProfileResponseDto(user.getUserName(), user.getProfile().getIntroduce()));
             }
@@ -64,13 +67,18 @@ public class SellerServiceImpl implements SellerService{
         //레파지토리에서  List<Item> sellerItem 를 뽑아내야함.
         //user 객체를 통째로 넘겨받아서
         //아이템 레파지토리에 접근을 해서 그 아이템 레파지토리에서 파인드바이 유저로
-
+        if(currentPage==0) currentPage=1;
         User user =userRepository.findById(userid).orElseThrow(IdNotFoundException::new);
         //리스트로 어떻게 가져오지..?
-        List<Item> itemList =  itemRepository.findByUser(user);
+        Page<Item> byUserItemPage = itemRepository.findByUserId(user.getId(),PageRequest.of(currentPage-1, 3, Sort.by("id").descending()));
+        List<Item> itemList = new ArrayList<>();
+
+        for (Item item:byUserItemPage) {
+            if(item.getIsAvailable())itemList.add(item);
+        }
+
 
         return new SelectedSellerResponseDto(user.getUserName(), user.getProfile().getIntroduce(),itemList);
-
 
     }
 

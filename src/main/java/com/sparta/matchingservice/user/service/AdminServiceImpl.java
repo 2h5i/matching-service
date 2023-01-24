@@ -45,6 +45,7 @@ public class AdminServiceImpl implements AdminService{
 
         customer.changeAuthorityCustomerToSeller(sellerEnrollment.getIntroduce());
         userRepository.saveAndFlush(customer);
+
     }
 
     @Transactional
@@ -53,7 +54,9 @@ public class AdminServiceImpl implements AdminService{
         User user = userRepository.findById(sellerId).orElseThrow(
                 () -> new IllegalArgumentException("사용자가 존재하지 않습니다.")
         );
+
         user.changeAuthoritySellerToCustomer();
         userRepository.saveAndFlush(user);
+
     }
 }

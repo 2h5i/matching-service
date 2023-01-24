@@ -5,6 +5,7 @@ import com.sparta.matchingservice.security.util.UserDetailsImpl;
 import com.sparta.matchingservice.user.dto.ItemsResponseDto;
 import com.sparta.matchingservice.user.dto.RegisterItemForm;
 import com.sparta.matchingservice.user.dto.UpdateItemForm;
+import com.sparta.matchingservice.user.entity.UserRole;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -23,10 +24,12 @@ public class ItemController {
     private final ItemService itemService;
 
     // 내 판매 상품 조회
+
     @GetMapping("/myItems")
     @PreAuthorize("hasRole('ROLE_SELLER')")
     public Page<ItemsResponseDto> getItems(@PageableDefault(size = 5) Pageable pageable, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         return itemService.getMyItems(pageable, userDetails.getUser());
+
     }
 
     // 판매 물품 등록
@@ -51,10 +54,10 @@ public class ItemController {
     }
 
     //전체 판매 상품 조회
-    //todo 판매상품조회 테스트코드 만들고 돌려보기.
     @GetMapping("/items")
     public List<ItemsResponseDto> readItem(@RequestParam int currentPage){
-        return itemService.readItem(currentPage);
+        List<ItemsResponseDto> dto = itemService.readItem(currentPage);
+        return dto;
     }
 
 

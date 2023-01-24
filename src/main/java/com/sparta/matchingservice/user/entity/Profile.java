@@ -33,6 +33,7 @@ public class Profile {
         this.introduce = introduce;
     }
 
+
     public void updateSellerProfile(String nickName, String profileImage, String introduce) {
         this.nickName = nickName;
         this.profileImage = profileImage;

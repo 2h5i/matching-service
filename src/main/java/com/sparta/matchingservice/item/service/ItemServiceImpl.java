@@ -73,12 +73,12 @@ public class ItemServiceImpl implements ItemService{
     @Transactional(readOnly = true)
     public List<ItemsResponseDto> readItem(int currentPage){
         if(currentPage==0) currentPage=1;
-        Page<Item> itemPage = itemRepository.findAll(PageRequest.of(currentPage-1,10,Sort.by("id").descending())); // TODO : 민선님에게 descending 필요한지 물어보고 맞춰보기!
+        Page<Item> itemPage = itemRepository.findAll(PageRequest.of(currentPage-1,10,Sort.by("id").descending()));
 
         List<ItemsResponseDto> itemsResponseDtos = new ArrayList<>();
 
-        for(Item item:itemPage.getContent()){
-            if(item.getIsAvailable())   itemsResponseDtos.add(new ItemsResponseDto(item));
+        for(Item item:itemPage){
+            if(item.getIsAvailable()) itemsResponseDtos.add(new ItemsResponseDto(item));
         }
 
         return itemsResponseDtos;

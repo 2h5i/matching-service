@@ -33,14 +33,10 @@ public class CustomerServiceImpl implements CustomerService {
         String nickName = modifyUserProfileRequestDto.getNickName().toString();
 
         //레파지토리에서 user 객체 찾기
-
         User user = userRepository.findById(id).orElseThrow(IdNotFoundException::new);
 
         // 프로필 내용수정
-
         user.modufyProfile(nickName,profileImage);
-
-        // 유저에 프로필 닉네임이 잘 수정됐나 테스트...
         userRepository.save(user);
         return new UserProfileResponseDto(user);
 

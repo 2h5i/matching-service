@@ -43,7 +43,6 @@ public class CustomerController {
 
     @GetMapping("/api/users/profile")
     public UserProfileResponseDto readProfile(@AuthenticationPrincipal UserDetailsImpl userDetails) {
-        //todo 토큰에서 유저네임 꺼내서 넣기
         String userName = userDetails.getUsername();
         return customerService.readProfile(userName);
     }
@@ -59,7 +58,6 @@ public class CustomerController {
 
     //선택된 판매자 정보 조회
 
-    @Secured({UserRole.Authority.USER,UserRole.Authority.SELLER,UserRole.Authority.ADMIN})
     @GetMapping("/api/users/seller/profile/{userId}")
     public SelectedSellerResponseDto selectedSeller(@PathVariable Long userId , @RequestParam int currentPage) {
         // 셀러 권한 확인하고 넘기기
@@ -69,10 +67,9 @@ public class CustomerController {
 
 
     // 판매자권한 등록 요청
-//    @Secured({UserRole.Authority.USER})
+    @Secured({UserRole.Authority.USER})
     @PutMapping("/api/users/enroll-seller")
     public ResponseSellerEnrollment enrollmentSeller(@RequestBody RequestSellerEnrollmentDto requestSellerEnrollmentDto , @AuthenticationPrincipal UserDetailsImpl userDetails){
-        //todo userName 빼서 넣어주기.
         User user = userDetails.getUser();
         return sellerEnrollmentService.enrollmentSeller(requestSellerEnrollmentDto,user);
     }

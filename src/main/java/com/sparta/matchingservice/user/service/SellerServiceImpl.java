@@ -46,7 +46,8 @@ public class SellerServiceImpl implements SellerService{
     public List<SellerProfileResponseDto> allSellerList(int currentPage){
 
         if(currentPage==0) currentPage=1;
-        Page<User> usersByUserRole = userRepository.findUsersByUserRole(UserRole.SELLER, PageRequest.of(currentPage-1, 3, Sort.by("id").descending()));
+        Page<User> usersByUserRole = userRepository
+                .findUsersByUserRole(UserRole.SELLER, PageRequest.of(currentPage-1, 3, Sort.by("id").descending()));
 
         List<SellerProfileResponseDto> sellerProfileResponseDtos = new ArrayList<>();
 

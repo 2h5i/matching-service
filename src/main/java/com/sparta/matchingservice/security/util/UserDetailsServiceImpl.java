@@ -2,6 +2,7 @@ package com.sparta.matchingservice.security.util;
 
 import com.sparta.matchingservice.user.entity.User;
 import com.sparta.matchingservice.user.repository.UserRepository;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

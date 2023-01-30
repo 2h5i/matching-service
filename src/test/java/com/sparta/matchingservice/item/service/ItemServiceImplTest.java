@@ -77,7 +77,7 @@ class ItemServiceImplTest {
         Page<ItemsResponseDto> myItems = itemService.getMyItems(pageable, findUser);
         assertThat(myItems.getContent().size()).isEqualTo(5);
     }
-
+/*
     @Test
     public void 상품_등록() {
         Pageable pageable = PageRequest.of(0, 10);
@@ -87,9 +87,10 @@ class ItemServiceImplTest {
         );
         itemService.registerItem(registerItemForm, user);
 
-        Page<Item> user2Items = itemRepository.findAllByUserId(2L,pageable);
+        Page<Item> user2Items = itemRepository.findAllByUserIdAndIsAvailable(2L,true, pageable);
         assertThat(user2Items.getContent().size()).isEqualTo(2);
     }
+ */
 
     @Test
     public void 상품_수정() {

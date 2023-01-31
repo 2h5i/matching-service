@@ -364,3 +364,5 @@ gradle-app.setting
 
 # Application.properties
 /src/main/resources/application.properties
+# Vim session file
+*.vim

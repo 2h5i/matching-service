@@ -58,13 +58,14 @@ public class SecurityServiceTest {
     @DisplayName("Sign Up - not Admin")
     void signup() {
         //given
-        SignupRequestDto request = SignupRequestDto.builder()
-            .userName("Sam")
-            .password("1234")
-            .nickName("Samsung")
-            .profileImage("imgtxt")
-            .admin(false)
-            .build();
+        SignupRequestDto request = new SignupRequestDto(
+            "Sam",
+            "1234",
+            "Samsung",
+            "imgtxt",
+            false,
+            ""
+        );
 
         User user = User.builder().userName("Sam")
                         .password("1234").userRole(UserRole.USER).build();

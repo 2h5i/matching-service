@@ -10,7 +10,6 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 @Getter
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class SignupRequestDto {

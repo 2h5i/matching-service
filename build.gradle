@@ -55,3 +55,14 @@ dependencies {
 tasks.named('test') {
     useJUnitPlatform()
 }
+
+test {
+    testLogging {
+        // https://blog.hkwon.me/gradle-test-task-logging/
+        showStandardStreams = true
+        showCauses = true
+        showExceptions = true
+        showStackTraces = true
+        exceptionFormat = 'full'
+    }
+}
